@@ -78,16 +78,16 @@ export async function register(req: Request, res: Response) {
 
 export async function login(req: Request, res: Response) {
   try{
-    const { username , password } = req.body;
+    const { email , password } = req.body;
 
-    if(!username || !password){
+    if(!email || !password){
       return res.status(400).json({
         success: false,
         message: "Please enter all the fields",
       });
     }
 
-    const user = await User.findOne({username});
+    const user = await User.findOne({email});
 
     if(!user){
       return res.status(400).json({
@@ -98,7 +98,8 @@ export async function login(req: Request, res: Response) {
 
     const payload = {
       id: user._id,
-      username : user.username,
+      email : user.email,
+      username: user.username,
       accountType: user.accountType,
     }
 

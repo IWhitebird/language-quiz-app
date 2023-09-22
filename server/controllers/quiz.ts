@@ -12,7 +12,10 @@ export const getAllQuiz = async (req: Request, res: Response) => {
                 path: 'questions',
                 model: 'Question'
             }
-        })
+        }).populate({
+            path: 'createdBy',
+            select: 'username'
+        });
 
         if(!quiz){
             return res.status(400).json({success : false , error: 'Quiz not found' });
@@ -68,6 +71,8 @@ export const createQuiz = async (req: Request, res: Response) => {
             createdBy,
             language
         } = req.body;
+
+        const image = req.body?.image || null;
         
         if(!name || !description || !createdBy || !language){
             return res.status(400).json({success : false , error: 'Please enter all fields' });
@@ -85,7 +90,8 @@ export const createQuiz = async (req: Request, res: Response) => {
             description,
             createdBy,
             language,
-            verified
+            verified,
+            image
         });
 
         user?.quizes.push(quiz._id);
