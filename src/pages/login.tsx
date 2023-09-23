@@ -2,12 +2,16 @@ import { useState } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../slices/userSlice";
 
 const Login = () => {
 
  const [email, setEmail] = useState<string>('');
  const [password, setPassword] = useState<string>('');
-const [formError, setFormError] = useState<string>('');
+ const [formError, setFormError] = useState<string>('');
+
+ const dispatch = useDispatch();
 
   async function submitHandler() {
     let toastId = toast.loading('Loading...');
@@ -25,7 +29,7 @@ const [formError, setFormError] = useState<string>('');
         if(response.statusText === 'OK') {
             toast.success('Logged in successfully');
             localStorage.setItem('token', response.data.token);
-            // localStorage.setItem('user', JSON.stringify(response.data.user));
+            dispatch(setUser(response.data.user));
             window.location.href = '/home';
         }
     }
@@ -39,7 +43,7 @@ const [formError, setFormError] = useState<string>('');
 
   return (
     <>
-      <div className=" font-Hand min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+      <div className=" min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="absolute inset-0 bg-gradient-to-r from-black to-white shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
           <div className="relative px-4 py-10 bg-white shadow-lg  sm:p-20">

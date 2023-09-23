@@ -80,7 +80,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="font-Hand min-h-screen bg-gray-100 py-10 flex flex-col justify-center sm:py-8 ">
+      <div className="min-h-screen bg-gray-100 py-10 flex flex-col justify-center sm:py-8 ">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="absolute inset-0 bg-gradient-to-r from-black to-white  shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
           <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
@@ -199,7 +199,7 @@ const SignUp = () => {
       </div>
 
       {otpModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 font-Hand">
+        <div className="fixed inset-0 flex items-center justify-center z-50 ">
           <div className="fixed inset-0 bg-black opacity-40  backdrop-blur-md"></div>
           <div className="relative bg-white p-4 md:p-8 rounded-lg shadow-lg text-center">
             <div className="flex justify-between">

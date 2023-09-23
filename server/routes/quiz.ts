@@ -7,7 +7,8 @@ import {
     getSingleQuiz,
     createQuiz,
     createAssignment,
-    createQuestion
+    createQuestion,
+    getCompleteQuiz,
 } from "../controllers/quiz";
 
 
@@ -17,6 +18,7 @@ import {
 
 router.get("/getAllQuizes",auth, getAllQuiz);
 router.get("/getSingleQuiz/:quizId" ,auth, getSingleQuiz); 
+router.get("/getCompleteQuiz/:quizId" ,auth, getCompleteQuiz);
 router.post("/createQuiz",auth, createQuiz);
 router.post("/createAssignment/:quizId",auth, createAssignment);
 router.post("/createQuestion/:assignmentId",auth, createQuestion);

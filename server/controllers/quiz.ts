@@ -34,17 +34,47 @@ export const getAllQuiz = async (req: Request, res: Response) => {
     }
 };
 
+export const getCompleteQuiz = async (req: Request, res: Response) => {
+try{
+    const {quizId} = req.params;
+
+    const quiz = await Quiz.findById(quizId)
+    .populate('createdBy')
+    .populate('assignment')
+    .populate({
+        path: 'assignment',
+        populate: {
+            path: 'questions',
+            model: 'Question'
+        }
+    });
+
+    if(!quiz){
+        return res.status(400).json({success : false , error: 'Quiz not found' });
+    }
+
+    return res.status(200).json({
+        success: true,
+        quiz,
+    });
+
+} catch (error) {
+    console.log(error);
+    return res.status(500).json({
+        success: false,
+        message: 'Internal Server error',
+    });
+  }
+};
 export const getSingleQuiz = async (req: Request, res: Response) => {
     try {
         const {quizId} = req.params;
 
-        const quiz = await Quiz.findById(quizId).populate('assignment').populate({
-            path: 'assignment',
-            populate: {
-                path: 'questions',
-                model: 'Question'
-            }
-        });
+        const quiz = await Quiz.findById(quizId)
+        // .populate('leaderboard')
+        .populate('createdBy')
+        .populate('assignment')
+        .populate('assignment');
 
         if(!quiz){
             return res.status(400).json({success : false , error: 'Quiz not found' });
@@ -187,5 +217,14 @@ export const createQuestion = async (req: Request, res: Response) => {
             success: false,
             message: 'Internal Server error',
         });
+    }
+}
+
+export const attemptQuiz = async (req: Request, res: Response) => {
+    try{
+        
+    }
+    catch{
+
     }
 }

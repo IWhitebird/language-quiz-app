@@ -41,6 +41,7 @@ export interface IQuestion extends mongoose.Document {
 }
 
 export interface IQuiz extends mongoose.Document {
+  _id: mongoose.Schema.Types.ObjectId;
   name: string;
   description: string;
   assignment: IAssignment[];
