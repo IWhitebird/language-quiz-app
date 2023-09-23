@@ -9,6 +9,7 @@ import {
     createAssignment,
     createQuestion,
     getCompleteQuiz,
+    submitQuiz
 } from "../controllers/quiz";
 
 
@@ -22,6 +23,7 @@ router.get("/getCompleteQuiz/:quizId" ,auth, getCompleteQuiz);
 router.post("/createQuiz",auth, createQuiz);
 router.post("/createAssignment/:quizId",auth, createAssignment);
 router.post("/createQuestion/:assignmentId",auth, createQuestion);
+router.post("/submitQuiz/:quizId",auth, submitQuiz);
 
 //router.delete("/deleteQuiz/:quizId",auth, deleteQuiz);
 

@@ -10,7 +10,7 @@ import PlayQuiz from './pages/PlayQuiz';
 function App() {
 
   return (
-    <div className='bg-[##e1e1e1] w-screen min-h-screen flex flex-col font-Nuni'>
+    <div className='bg-[##e1e1e1] min-h-screen flex flex-col font-Nuni'>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path='/login' element={<Login />} />

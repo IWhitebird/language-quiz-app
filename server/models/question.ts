@@ -22,6 +22,7 @@ const questionSchema = new mongoose.Schema<IQuestion>({
         type: Number,
         enum : [1,2,3,4,5],
         required: true,
+        default : 1,
     },
 }, { timestamps: true });
 

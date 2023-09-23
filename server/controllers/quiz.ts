@@ -3,6 +3,9 @@ import  Quiz  from '../models/quiz';
 import  User  from '../models/user';
 import Assignment from '../models/assignment';
 import Question from '../models/question';
+import QuizAttempt from "../models/quizAttempt";
+import { AuthReq, IQuestion } from '../types';
+import mongoose from 'mongoose';
 
 export const getAllQuiz = async (req: Request, res: Response) => {
     try {
@@ -66,6 +69,7 @@ try{
     });
   }
 };
+
 export const getSingleQuiz = async (req: Request, res: Response) => {
     try {
         const {quizId} = req.params;
@@ -220,11 +224,86 @@ export const createQuestion = async (req: Request, res: Response) => {
     }
 }
 
-export const attemptQuiz = async (req: Request, res: Response) => {
+export const submitQuiz = async (req: AuthReq, res: Response) => {
     try{
-        
-    }
-    catch{
+        const {answers , timeRemaining } = req.body;
 
+        const {quizId} = req.params;
+
+        if(!answers || !timeRemaining){
+            return res.status(400).json({success : false , error: 'Please enter all fields' });
+        }
+
+        let totalscore : number = 0;
+
+        for(const key in answers){
+            const question = await Question.findById(new mongoose.Types.ObjectId(key));
+            console.log(question)
+            if(question?.answer === answers[key].toString()){
+                totalscore += question!.points;
+            }
+        }
+
+        totalscore = Math.floor(totalscore * timeRemaining / 1000);
+
+        const quizAttempt = await QuizAttempt.create({
+            quiz: quizId,
+            user: req.user.id,
+            totalscore
+        });
+
+        const updateUser = await User.findByIdAndUpdate(req.user.id, {
+            $push: { quizAttempts: quizAttempt._id } }, {new : true}
+        );
+
+        const updateQuiz = await Quiz.findByIdAndUpdate(quizId, {
+            $push: { leaderboard: quizAttempt._id } }, {new : true}
+        );
+
+
+        console.log(totalscore)
+
+        res.status(200).json({
+            success: true,
+            message: 'Quiz submitted successfully',
+            quizAttempt,
+        });
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server error',
+        });
+    }
+}
+
+export const getLeaderboard = async (req: Request, res: Response) => {
+    try{
+        const {quizId} = req.params;
+
+        const leaderboard = await Quiz.findById(quizId).populate({
+            path: 'leaderboard',
+            populate: {
+                path: 'user',
+                select: 'username'
+            }
+        });
+
+        if(!leaderboard){
+            return res.status(400).json({success : false , error: 'No Leaderbaord' });
+        }
+
+        return res.status(200).json({
+            success: true,
+            leaderboard,
+        });
+
+    } catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server error',
+        });
     }
 }
