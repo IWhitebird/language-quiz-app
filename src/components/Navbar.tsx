@@ -4,11 +4,29 @@ import { FiLogOut } from 'react-icons/fi';
 import { IoMdSettings } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { BiHomeAlt } from 'react-icons/bi';
+import { deleteUser } from '../slices/userSlice';
+import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
   const { user, logged } = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch<any>();
 
-  console.log("myuser", user);
+  async function logoutHandle() {
+    const loadingtoast = toast.loading('Logging out...');
+    try{
+      localStorage.removeItem('token');
+      dispatch(deleteUser());
+      toast.success('Logged out!', {id: loadingtoast});
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
+    }
+    catch(err){
+      toast.error('Try Again', {id: loadingtoast});
+      console.log(err);
+    }
+  }
 
   return (
     <div>
@@ -28,10 +46,12 @@ const Navbar = () => {
                   <BiHomeAlt />
                 </div>
               </Link>
-              <div className='hover:scale-125 hover:text-gray-700 hover:rotate-180 transition-all ease-in-out duration-300'>
+              <Link to='/dashboard'>
+              <div className='hover:scale-125 hover:text-gray-500 hover:rotate-180 transition-all ease-in-out duration-300'>
                 <IoMdSettings />
               </div>
-              <div className='hover:scale-125 hover:text-red-600 hover:translate-x-3 transition-all ease-in-out duration-300' >
+              </Link>
+              <div onClick={logoutHandle} className='cursor-pointer hover:scale-125 hover:text-red-600 hover:translate-x-3 transition-all ease-in-out duration-300' >
                 <FiLogOut /> 
               </div>
             </div>

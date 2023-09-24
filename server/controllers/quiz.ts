@@ -6,6 +6,11 @@ import Question from '../models/question';
 import QuizAttempt from "../models/quizAttempt";
 import { AuthReq, IQuestion } from '../types';
 import mongoose from 'mongoose';
+import { UploadToCloudinary } from '../utils/imageUpload';
+
+import dotenv from 'dotenv';
+import { combineReducers } from 'redux';
+dotenv.config();
 
 export const getAllQuiz = async (req: Request, res: Response) => {
     try {
@@ -48,7 +53,8 @@ try{
         path: 'assignment',
         populate: {
             path: 'questions',
-            model: 'Question'
+            model: 'Question',
+            select: '-answer'
         }
     });
 
@@ -75,10 +81,18 @@ export const getSingleQuiz = async (req: Request, res: Response) => {
         const {quizId} = req.params;
 
         const quiz = await Quiz.findById(quizId)
-        .populate('leaderboard')
         .populate('createdBy')
         .populate('assignment')
-        .populate('assignment');
+        .populate('assignment')
+        .populate({
+            path: 'leaderboard',
+            populate: {
+                path: 'user',
+                model: 'User',
+                select: 'username , image'
+
+            }
+        });
 
         if(!quiz){
             return res.status(400).json({success : false , error: 'Quiz not found' });
@@ -97,18 +111,19 @@ export const getSingleQuiz = async (req: Request, res: Response) => {
     }
 };
 
-export const createQuiz = async (req: Request, res: Response) => {
+export const createQuiz = async (req: AuthReq, res: Response) => {
     try{
         const {
             name,
             description,
-            createdBy,
-            language
+            language,
         } = req.body;
 
-        const image = req.body?.image || null;
+        const createdBy = req.user.id;
+
+        const thumbnail = req.files.thumbnail;
         
-        if(!name || !description || !createdBy || !language){
+        if(!name || !description || !language){
             return res.status(400).json({success : false , error: 'Please enter all fields' });
         }
 
@@ -119,13 +134,15 @@ export const createQuiz = async (req: Request, res: Response) => {
             verified = true;
         }
 
+        const uploadImg = await UploadToCloudinary(thumbnail , process.env.FOLDER_NAME!);
+
         const quiz = await Quiz.create({
             name,
             description,
             createdBy,
             language,
             verified,
-            image
+            image: uploadImg.secure_url,
         });
 
         user?.quizes.push(quiz._id);
@@ -152,16 +169,17 @@ export const createAssignment = async (req: Request, res: Response) => {
         const {
             name,
             description,
+            instructions,
         } = req.body;
 
-        if(!name || !description){
+        if(!name || !description || instructions.length === 0){
             return res.status(400).json({success : false , error: 'Please enter all fields' });
         }
 
         const assignment = await Assignment.create({
             name,
             description,
-            instructions: req.body?.instructions || null,
+            instructions: instructions,
         });
 
         const updatedQuiz = await Quiz.findByIdAndUpdate(
@@ -207,9 +225,10 @@ export const createQuestion = async (req: Request, res: Response) => {
         });
 
         const SaveToAssignment = await Assignment.findByIdAndUpdate(req.params.assignmentId, {
-            $push: { questions: saveQuestion._id } }, {new : true}
-        );
-                                
+            $push: { questions: saveQuestion._id },
+            $inc: { maxscore: points } // Increment maxscore by points
+        }, { new: true });
+                  
         return res.status(200).json({
             success: true,
             saveQuestion,
@@ -235,18 +254,20 @@ export const submitQuiz = async (req: AuthReq, res: Response) => {
         }
 
         let totalscore : number = 0;
+        let correct = 0;
 
         for(const key in answers){
             const question = await Question.findById(new mongoose.Types.ObjectId(key));
             console.log(question)
             if(question?.answer === answers[key].toString()){
                 totalscore += question!.points;
+                correct++;
             }
         }
 
         totalscore = Math.floor(totalscore * timeRemaining / 1000);
 
-        const quizAttempt = await QuizAttempt.create({
+        let quizAttempt = await QuizAttempt.create({
             quiz: quizId,
             user: req.user.id,
             totalscore
@@ -259,47 +280,18 @@ export const submitQuiz = async (req: AuthReq, res: Response) => {
         const updateQuiz = await Quiz.findByIdAndUpdate(quizId, {
             $push: { leaderboard: quizAttempt._id } }, {new : true}
         );
-
-
+        
+         
         console.log(totalscore)
 
         res.status(200).json({
             success: true,
             message: 'Quiz submitted successfully',
             quizAttempt,
+            correct
         });
     }
     catch(error){
-        console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: 'Internal Server error',
-        });
-    }
-}
-
-export const getLeaderboard = async (req: Request, res: Response) => {
-    try{
-        const {quizId} = req.params;
-
-        const leaderboard = await Quiz.findById(quizId).populate({
-            path: 'leaderboard',
-            populate: {
-                path: 'user',
-                select: 'username'
-            }
-        });
-
-        if(!leaderboard){
-            return res.status(400).json({success : false , error: 'No Leaderbaord' });
-        }
-
-        return res.status(200).json({
-            success: true,
-            leaderboard,
-        });
-
-    } catch(error){
         console.log(error);
         return res.status(500).json({
             success: false,

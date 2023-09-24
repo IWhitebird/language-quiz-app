@@ -11,15 +11,15 @@ const PlayQuiz = () => {
   const [time, setTime] = useState<string>("00:00:00");
   const [answers, setAnswers] = useState<any>();
   const char = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
-  const [loading, setLoading] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
   const [result, setResult] = useState<any>();
-
   const user = useSelector((state: RootState) => state.user.user);
-
-
+  
+  
   const localquiz = localStorage.getItem("cur_quiz");
   const timeValue = new Date(JSON.parse(localquiz!).time);
   const timeRemaining = timeValue.getTime() - Date.now();
+  const quizId = JSON.parse(localquiz!).quizId;
 
 
   useEffect(() => {
@@ -43,13 +43,17 @@ const PlayQuiz = () => {
 
   async function submitHandle() {
     try{
-      setLoading(true);
+      setModal(true);
       console.log(answers)
       if(answers === undefined) {
-        window.location.href = '/home';
+        toast.error("Please attempt the quiz!!", {icon: "🤔"});
+        setTimeout(() => {
+          window.location.href = '/home';
+        }, 1000)
+        return
       }
       const token = localStorage.getItem("token");
-      const quizId = JSON.parse(localquiz!).quizId;
+
       const response = await axios.post(
         import.meta.env.VITE_API_URL + `/quiz/submitQuiz/${quizId}`,
         {
@@ -63,14 +67,8 @@ const PlayQuiz = () => {
         }
       );
 
-      console.log(response.data);
-
-      if (response.statusText === "OK") {
-        toast.success("Quiz Submitted Successfully!!");
-      }
-
+      console.log(response.data.quizAttempt);
       setResult(response.data)
-      setLoading(false);
     }
     catch(error){
       console.error(error);
@@ -132,8 +130,6 @@ const PlayQuiz = () => {
       const token = localStorage.getItem("token");
       if (!localquiz) return;
 
-      const quizId = JSON.parse(localquiz).quizId;
-
       const response = await axios.get(
         import.meta.env.VITE_API_URL + `/quiz/getCompleteQuiz/${quizId}`,
         {
@@ -158,6 +154,20 @@ const PlayQuiz = () => {
 
     setAnswers(newAns);
   };
+
+  const overHandle = () => {
+    setTimeout(() => {
+      window.location.href = '/home';
+    }, 1000)
+    setModal(false);
+  }
+
+  const retryHandle = () => {
+    setTimeout(() => {
+      window.location.href = `/quiz/${quizId}`;
+    }, 1000)
+    setModal(false); 
+  }
 
   return (
     <>
@@ -263,7 +273,7 @@ const PlayQuiz = () => {
       </div>
 
       {
-        true && (
+        modal && (
           <div  className="w-screen h-screen backdrop-blur-sm fixed">
             <div className="w-full h-full flex justify-center items-center content-center">
               <div className="w-[60%] h-[60%] bg-white flex flex-col border-2 rounded-lg border-black" >
@@ -274,24 +284,24 @@ const PlayQuiz = () => {
                   <div className="text-center lg:text-5xl mt-5 ml-24 font-bold">
                     Results !! 📝
                   </div>
-                  <div className="m-5 lg:text-3xl cursor-pointer">
+                  <div onClick={overHandle} className="m-5 lg:text-3xl cursor-pointer">
                     <AiOutlineClose />
                   </div>
                 </div>
                 <hr />
                 <div className="lg:text-3xl font-bold lg:mt-10 text-center">
-                  Total Score is : <br /> <span className="lg:text-4xl">{result?.score}</span>
+                  Total Score is : <br /> <span className="lg:text-5xl text-green-950">{result?.quizAttempt?.totalscore}</span>
                 </div>
                 <div className="lg:text-3xl font-bold lg:mt-10 text-center">
-                  You got {result?.correct} correct answers
+                  You got <span className="text-3xl">{result?.correct}</span> correct answers
                 </div>
                 <div className="w-full mx-auto mt-20 flex flex-row  justify-center gap-9">
-                  <button className="w-[160px] h-[50px] bg-black text-white text-2xl 
+                  <button onClick={retryHandle} className="w-[160px] h-[50px] bg-black text-white text-2xl 
                   rounded-md border-2 border-white hover:bg-white hover:border-black
                    hover:text-black hover:scale-125 transition-all duration-300 ease-in-out">
                     Retry
                   </button>
-                  <button className="w-[160px] h-[50px] bg-black text-white text-2xl rounded-md border-2
+                  <button onClick={overHandle} className="w-[160px] h-[50px] bg-black text-white text-2xl rounded-md border-2
                    border-white hover:bg-white hover:border-black hover:text-black 
                    hover:scale-125 transition-all duration-300 ease-in-out">
                       Go Home

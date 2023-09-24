@@ -21,10 +21,15 @@ const userSlice = createSlice({
             state.user = action.payload;
             state.logged = true;
             localStorage.setItem('user', JSON.stringify(action.payload));
+        },
+        deleteUser(state : UserState) {
+            state.user = null;
+            state.logged = false;
+            localStorage.removeItem('user');
         }
     },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser , deleteUser } = userSlice.actions;
 
 export default userSlice.reducer;

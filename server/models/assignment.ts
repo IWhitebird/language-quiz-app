@@ -13,7 +13,7 @@ export const assignmentSchema = new mongoose.Schema<IAssignment>({
     instructions: [
         {
             type: String,
-            required: false,
+            required: true,
         }
     ],
     questions: [ {

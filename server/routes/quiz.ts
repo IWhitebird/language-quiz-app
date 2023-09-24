@@ -10,7 +10,7 @@ import {
     createQuestion,
     getCompleteQuiz,
     submitQuiz
-} from "../controllers/quiz";
+} from "../controllers/quiz"
 
 
 import {
