@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { IAssignment, IQuiz } from "../types";
-1;
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
@@ -85,7 +84,8 @@ const Quiz = () => {
                 isActive === "Assignment"
                   ? "bg-black text-white"
                   : "text-black border-2 border-black"
-              }  h-[60px] w-[250px] text-2xl rounded-md text-center pt-4 transition-colors ease-in-out duration-300 hover:cursor-pointer`}
+              }  h-[60px] w-[250px] text-2xl rounded-md text-center pt-4 transition-colors
+               ease-in-out duration-300 hover:cursor-pointer`}
               onClick={() => setIsActive("Assignment")}
             >
               Assignemnts
@@ -95,7 +95,8 @@ const Quiz = () => {
                 isActive === "Leaderboard"
                   ? "bg-black text-white"
                   : "text-black border-2 border-black"
-              } h-[60px] w-[200px] text-2xl rounded-md text-center pt-4 transition-colors ease-in-out duration-300  hover:cursor-pointer`}
+              } h-[60px] w-[200px] text-2xl rounded-md text-center pt-4
+               transition-colors ease-in-out duration-300  hover:cursor-pointer`}
               onClick={() => setIsActive("Leaderboard")}
             >
               Leaderboard
@@ -108,7 +109,9 @@ const Quiz = () => {
                 return (
                   <div
                     key={i}
-                    className="hover:scale-110 transition-all duration-300 ease-in-out hover:bg-black hover:text-white w-full h-[3rem] items-center p-5 flex flex-row justify-between border-black border-2 rounded md "
+                    className="hover:scale-110 transition-all duration-300 ease-in-out
+                     hover:bg-black hover:text-white w-full h-[3rem] items-center 
+                     p-5 flex flex-row justify-between border-black border-2 rounded md "
                   >
                     <h4>{assi.name}</h4>
                     <h5>{assi.description}</h5>
@@ -118,12 +121,14 @@ const Quiz = () => {
               })}
             </div>
           ) : (
-            <div className="flex flex-col gap-5 w-[70%] mx-auto min-h-[400px] mt-10">
+            <div className="flex flex-col gap-5 p-2 w-[70%] mx-auto min-h-[400px] mt-10">
               {quiz && quiz.leaderboard?.length > 0 ? (
                 quiz?.leaderboard.map((lead: any, i: number) => (
                   <div
                     key={i}
-                    className="text-3xl hover:scale-110 transition-all duration-300 ease-in-out hover:bg-black hover:text-white w-full h-[3rem] items-center p-5 flex flex-row justify-between border-black border-2 rounded md"
+                    className="text-3xl hover:scale-110 transition-all duration-300 ease-in-out
+                     hover:bg-black  hover:text-white w-fullh-[3rem] items-center p-8 flex flex-row 
+                     justify-between border-black border-2 rounded md"
                   >
                     <div className="min-w-[10%] max-w-[10%]">
                     <h4>{i + 1}</h4>
@@ -154,7 +159,8 @@ const Quiz = () => {
         <div className="w-full flex justify-center mt-5">
           <button
             onClick={startHandle}
-            className="mb-[5rem] mt-9 mx-auto w-[150px] h-[60px] rounded-md bg-black text-white text-3xl hover:scale-110 transition-all ease-in-out duration-300"
+            className="mb-[5rem] mt-9 mx-auto w-[150px] h-[60px] rounded-md bg-black
+             text-white text-3xl hover:scale-110 transition-all ease-in-out duration-300"
           >
             Start
           </button>

@@ -245,7 +245,7 @@ export const createQuestion = async (req: Request, res: Response) => {
 
 export const submitQuiz = async (req: AuthReq, res: Response) => {
     try{
-        const {answers , timeRemaining } = req.body;
+        const {answers , timeRemaining} = req.body;
 
         const {quizId} = req.params;
 
@@ -273,10 +273,25 @@ export const submitQuiz = async (req: AuthReq, res: Response) => {
             totalscore
         });
 
-        const updateUser = await User.findByIdAndUpdate(req.user.id, {
-            $push: { quizAttempts: quizAttempt._id } }, {new : true}
-        );
+        const language = await Quiz.findById(quizId).select('language');
 
+        const progressPayload = {
+            date : Date.now(),
+            language : language,
+            score : totalscore,
+        }
+
+        const updateUser = await User.findByIdAndUpdate(
+            req.user.id,
+            {
+              $push: {
+                recent: quizAttempt._id,
+                progress: progressPayload
+              }
+            },
+            { new: true }
+          );
+          
         const updateQuiz = await Quiz.findByIdAndUpdate(quizId, {
             $push: { leaderboard: quizAttempt._id } }, {new : true}
         );

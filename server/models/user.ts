@@ -52,9 +52,20 @@ const userSchema = new mongoose.Schema<IUser>({
         ref: "QuizAttempt",
     }],
     progress :[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Progress",
-    }],
+        date : {
+            type :Date,
+            default: Date.now,
+        },
+        language : {
+            type: String,
+            required: true,
+        },
+        score : {
+            type: Number,
+            required: true,
+        },
+    }
+    ],
     createdAt :{
         type: Date,
         default: Date.now,

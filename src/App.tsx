@@ -6,6 +6,7 @@ import Landing from './pages/landing';
 import Quiz from './pages/Quiz';
 import { Routes, Route } from 'react-router-dom';
 import PlayQuiz from './pages/PlayQuiz';
+import Dashboard from './pages/dashboard';
 
 function App() {
 
@@ -14,9 +15,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/SignUp' element={<SignUp />} />
+        <Route path='/SignUp' element={<SignUp />} />2
         <Route path="/home" element={<Home />} />
         <Route path='/quiz/:id' element={<Quiz />} />
+        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/quiz/play/:id' element={<PlayQuiz />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
