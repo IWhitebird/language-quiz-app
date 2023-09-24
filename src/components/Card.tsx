@@ -4,7 +4,7 @@ import { IQuiz } from "../types"
 
 const Card = ({quiz} : {quiz : IQuiz}) => {
   return (
-    <div className="border-[3px] border-dashed shadow-md shadow-black sha p-3 rounded-sm border-black w-full h-[450px] lg:w-[22rem] lg:h-[550px] hover:scale-[1.1] transition-all ease-in-out duration-300 ">
+    <div className="bg-white border-[3px] shadow-md shadow-black sha p-2 rounded-sm border-black w-full h-[450px] lg:w-[22rem] lg:h-[550px] hover:scale-[1.1] transition-all ease-in-out duration-300 ">
         <img src={quiz.image} className="w-[100%] h-[40%] mx-auto" alt="img"/>
 
         <div className="w-[100%] mx-auto">

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { IAssignment, IQuiz } from "../types";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import { BiArrowBack } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Quiz = () => {
   const id = useParams();
@@ -44,18 +46,25 @@ const Quiz = () => {
 
   return (
     <>
+    <Link to="/home" className="z-50 absolute left-[5.5rem] top-[2.3rem] text-4xl hover:-translate-x-4 hover:scale-110
+        transition-all duration-200 ease-in-out">
+      <BiArrowBack />
+    </Link>
       <Navbar />
       <div className="w-[90%] mt-[9rem] mx-auto">
         <div className="flex flex-col lg:flex-row w-[90%] mx-auto lg:gap-2">
           <div className="flex flex-col w-full lg:w-[40%]">
             <h1 className="text-7xl mb-6 font-bold capitalize">{quiz?.name}</h1>
-            <h2 className="text-3xl ml-6 indent-10 lg:min-h-[150px]">
+            <h2 className="text-2xl ml-6 indent-10 lg:min-h-[150px]">
               {quiz?.description}
             </h2>
+            <hr style={{ borderColor: "black" }} />
+            <hr style={{ borderColor: "black" }} />
+
             <div className="mt-2 gap-3 flex flex-col">
               <h3 className="text-3xl ml-6 ">
                 {" "}
-                <span className="font-bold">Language :</span>
+                <span className="font-bold">Language : </span>
                 {quiz?.language}
               </h3>
               <h3 className="text-3xl ml-6 ">
@@ -123,14 +132,14 @@ const Quiz = () => {
           ) : (
             <div className="flex flex-col gap-5 p-2 w-[70%] mx-auto min-h-[400px] mt-10">
               {quiz && quiz.leaderboard?.length > 0 ? (
-                quiz?.leaderboard.map((lead: any, i: number) => (
+                quiz?.leaderboard.slice(0 , 10).map((lead: any, i: number) => (
                   <div
                     key={i}
                     className="text-3xl hover:scale-110 transition-all duration-300 ease-in-out
-                     hover:bg-black  hover:text-white w-fullh-[3rem] items-center p-8 flex flex-row 
-                     justify-between border-black border-2 rounded md"
+                     hover:bg-black  hover:text-white w-fullh-[3rem] rounded-full items-center p-3 flex flex-row 
+                     justify-between border-black border-2"
                   >
-                    <div className="min-w-[10%] max-w-[10%]">
+                    <div className="min-w-[10%] max-w-[10%] ml-4">
                     <h4>{i + 1}</h4>
                     </div>
                     <div className="min-w-[10%] max-w-[10%]">

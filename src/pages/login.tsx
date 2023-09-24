@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setUser } from "../slices/userSlice";
+import { BiArrowBack } from "react-icons/bi";
 
 const Login = () => {
 
@@ -43,17 +44,20 @@ const Login = () => {
 
   return (
     <>
-      <div className=" min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-        <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-          <div className="absolute inset-0 bg-gradient-to-r from-black to-white shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-          <div className="relative px-4 py-10 bg-white shadow-lg  sm:p-20">
+    <Link to="/home" className="z-50 absolute left-[5.5rem] top-[2.3rem] text-4xl hover:-translate-x-4 hover:scale-110
+        transition-all duration-200 ease-in-out">
+      <BiArrowBack />
+    </Link>
+      <div className="min-h-screen py-6 flex flex-col justify-center sm:py-12">
+        <div className="bg-white relative lg:scale-125 py-3 sm:max-w-xl sm:mx-auto border-2 border-black rounded-lg">
+          <div className="relative px-4 py-10 sm:p-20">
             <div className="max-w-md mx-auto">
               <div>
                 <h1 className="text-4xl font-semibold">
                   Login
                 </h1>
               </div>
-              <div className="divide-y divide-gray-200">
+              <div className="divide-y ">
                 <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                   <div className="relative mb-5">
                     <input
@@ -84,7 +88,9 @@ const Login = () => {
                     />
                     <label
                       htmlFor="password"
-                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base
+                       peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5
+                        peer-focus:text-gray-600 peer-focus:text-sm"
                     >
                       Password
                     </label>
@@ -92,11 +98,13 @@ const Login = () => {
                   <div className="relative">
                     <button
                       onClick={submitHandler}
-                      className="hover:scale-105 w-[80px] max-h-[50px] bg-white text-xl sm:text-lg font-bold text-black border-4 border-black hover:border-white hover:bg-black hover:text-white transition duration-300 ease-in-out"
+                      className="hover:scale-105 w-[120px] mt-2 max-h-[80px] bg-white text-xl sm:text-lg font-bold
+                       text-black border-4 border-black  hover:bg-black hover:text-white 
+                       transition duration-300 ease-in-out"
                     >
                       Login
                     </button>
-                    <Link to="/SignUp">
+                    <Link to="/register">
                       <p className=" text-blue-600  text-Nuni mt-4 transition-all duration-200 ease-in-out hover:text-blue-400">
                         register your account?
                       </p>

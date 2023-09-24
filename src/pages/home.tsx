@@ -14,19 +14,8 @@ const Home = () => {
 
   async function fetchAllQuizzes() {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("Token not found in local storage");
-        return;
-      }
-
       const response = await axios.get(
         import.meta.env.VITE_API_URL + "/quiz/getAllquizes",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
 
       setQuizs(response.data.quiz);

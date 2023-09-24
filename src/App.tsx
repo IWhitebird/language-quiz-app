@@ -1,6 +1,6 @@
 import './App.css'
 import Login from './pages/login';
-import SignUp from './pages/signup';
+import Register from './pages/register';
 import Home from './pages/home';
 import Landing from './pages/landing';
 import Quiz from './pages/Quiz';
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/SignUp' element={<SignUp />} />2
+        <Route path='/register' element={<Register />} />2
         <Route path="/home" element={<Home />} />
         <Route path='/quiz/:id' element={<Quiz />} />
         <Route path='/dashboard' element={<Dashboard />} />

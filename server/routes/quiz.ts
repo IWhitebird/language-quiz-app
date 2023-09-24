@@ -10,14 +10,14 @@ import {
     createQuestion,
     getCompleteQuiz,
     submitQuiz
-} from "../controllers/quiz"
+} from "../controllers/Quiz"
 
 
 import {
     auth,
 } from "../middleware/auth";
 
-router.get("/getAllQuizes",auth, getAllQuiz);
+router.get("/getAllQuizes", getAllQuiz);
 router.get("/getSingleQuiz/:quizId" ,auth, getSingleQuiz); 
 router.get("/getCompleteQuiz/:quizId" ,auth, getCompleteQuiz);
 router.post("/createQuiz",auth, createQuiz);

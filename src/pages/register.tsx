@@ -4,8 +4,9 @@ import OtpInput from "react-otp-input";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { BiArrowBack } from "react-icons/bi";
 
-const SignUp = () => {
+const Register = () => {
     
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -80,10 +81,14 @@ const SignUp = () => {
 
   return (
     <>
+    <Link to="/home" className="z-50 absolute left-[5.5rem] top-[2.3rem] text-4xl hover:-translate-x-4 hover:scale-110
+        transition-all duration-200 ease-in-out">
+      <BiArrowBack />
+    </Link>
       <div className="min-h-screen bg-gray-100 py-10 flex flex-col justify-center sm:py-8 ">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-          <div className="absolute inset-0 bg-gradient-to-r from-black to-white  shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+        
+          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-lg border-2 border-black lg:scale-125 sm:p-20">
             <div className="max-w-md mx-auto">
               <div>
                 <h1 className="text-4xl mb-4 font-semibold">Register</h1>
@@ -97,13 +102,16 @@ const SignUp = () => {
                         id="username"
                         name="username"
                         type="text"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-black"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300
+                         text-gray-900 focus:outline-none focus:border-black"
                         placeholder="Username"
                         onChange={(e) => setUsername(e.target.value)}
                       />
                       <label
                         htmlFor="username"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base 
+                        peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5
+                         peer-focus:text-gray-600 peer-focus:text-sm"
                       >
                         Username
                       </label>
@@ -114,13 +122,16 @@ const SignUp = () => {
                         id="firstName"
                         name="firstName"
                         type="text"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-black"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900
+                         focus:outline-none focus:border-black"
                         placeholder="First Name"
                         onChange={(e) => setFirstName(e.target.value)}
                       />
                       <label
                         htmlFor="firstName"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base
+                         peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5
+                          peer-focus:text-gray-600 peer-focus:text-sm"
                       >
                         First Name
                       </label>
@@ -131,13 +142,16 @@ const SignUp = () => {
                         id="lastName"
                         name="lastName"
                         type="text"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-black"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300
+                         text-gray-900 focus:outline-none focus:border-black"
                         placeholder="Last Name"
                         onChange={(e) => setLastName(e.target.value)}
                       />
                       <label
                         htmlFor="lastName"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base 
+                        peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5
+                         peer-focus:text-gray-600 peer-focus:text-sm"
                       >
                         Last Name
                       </label>
@@ -148,13 +162,16 @@ const SignUp = () => {
                         id="email"
                         name="email"
                         type="text"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-black"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300
+                         text-gray-900 focus:outline-none focus:border-black"
                         placeholder="Email"
                         onChange={(e) => setEmail(e.target.value)}
                       />
                       <label
                         htmlFor="email"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base 
+                        peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5
+                         peer-focus:text-gray-600 peer-focus:text-sm"
                       >
                         Email
                       </label>
@@ -165,13 +182,16 @@ const SignUp = () => {
                         id="password"
                         name="password"
                         type="password"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-black"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 
+                        focus:outline-none focus:border-black"
                         placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <label
                         htmlFor="password"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                        className="absolute left-0 -top-3.5 text-gray-600
+                         text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 
+                         transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                       >
                         Password
                       </label>
@@ -179,7 +199,9 @@ const SignUp = () => {
                     <div className="relative">
                       <button
                         type="submit"
-                        className="hover:scale-105 w-[80px] max-h-[50px] bg-white text-xl sm:text-lg font-bold text-black border-4 border-black hover:border-white hover:bg-black hover:text-white transition duration-300 ease-in-out"
+                        className="hover:scale-105 w-[120px] mt-2 max-h-[80px] bg-white text-xl sm:text-lg font-bold
+                        text-black border-4 border-black  hover:bg-black hover:text-white 
+                        transition duration-300 ease-in-out"
                       >
                         Register
                       </button>
@@ -226,7 +248,9 @@ const SignUp = () => {
                   style={{
                     boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
                   }}
-                  className="text-4xl w-12 md:w-16 lg:w-20 h-12 md:h-16 lg:h-20 border-0 bg-[#e7e7e773] rounded-[0.5rem] aspect-square text-center focus:border-1 focus:outline-2 focus:outline-black"
+                  className="text-4xl w-12 md:w-16 lg:w-20 h-12 md:h-16 lg:h-20 border-0 
+                  bg-[#e7e7e773] rounded-[0.5rem] aspect-square text-center focus:border-1
+                   focus:outline-2 focus:outline-black"
                 />
               )}
               containerStyle={{
@@ -238,13 +262,17 @@ const SignUp = () => {
               <div></div>
               <button
                 onClick={submitOtpHandler}
-                className="hover:scale-105 w-[80px] max-h-[50px] bg-white text-xl sm:text-lg font-bold text-black border-4 border-black hover:border-white hover:bg-black hover:text-white transition duration-300 ease-in-out"
+                className="hover:scale-105 w-[120px] mt-2 max-h-[80px] bg-white text-xl sm:text-lg font-bold
+                text-black border-4 border-black  hover:bg-black hover:text-white 
+                transition duration-300 ease-in-out"
               >
                 Submit
               </button>
               <button
                 onClick={submitHandler}
-                className="hover:scale-105 w-[130px] max-h-[50px] bg-white text-xl sm:text-lg font-bold text-black border-4 border-black hover:border-white hover:bg-black hover:text-white transition duration-300 ease-in-out"
+                className="hover:scale-105 w-[120px] mt-2 max-h-[80px] bg-white text-xl sm:text-lg font-bold
+                text-black border-4 border-black  hover:bg-black hover:text-white 
+                transition duration-300 ease-in-out"
               >
                 Resend OTP
               </button>
@@ -256,4 +284,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
