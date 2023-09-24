@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { RootState } from "../reducer";
+import { AiOutlineClose} from "react-icons/ai";
 
 const PlayQuiz = () => {
   const [quiz, setQuiz] = useState<IQuiz>();
@@ -262,9 +263,42 @@ const PlayQuiz = () => {
       </div>
 
       {
-        loading && (
-          <div>
+        true && (
+          <div  className="w-screen h-screen backdrop-blur-sm fixed">
+            <div className="w-full h-full flex justify-center items-center content-center">
+              <div className="w-[60%] h-[60%] bg-white flex flex-col border-2 rounded-lg border-black" >
+                <div className="flex flex-row justify-between">
+                  <div>
 
+                  </div>
+                  <div className="text-center lg:text-5xl mt-5 ml-24 font-bold">
+                    Results !! 📝
+                  </div>
+                  <div className="m-5 lg:text-3xl cursor-pointer">
+                    <AiOutlineClose />
+                  </div>
+                </div>
+                <hr />
+                <div className="lg:text-3xl font-bold lg:mt-10 text-center">
+                  Total Score is : <br /> <span className="lg:text-4xl">{result?.score}</span>
+                </div>
+                <div className="lg:text-3xl font-bold lg:mt-10 text-center">
+                  You got {result?.correct} correct answers
+                </div>
+                <div className="w-full mx-auto mt-20 flex flex-row  justify-center gap-9">
+                  <button className="w-[160px] h-[50px] bg-black text-white text-2xl 
+                  rounded-md border-2 border-white hover:bg-white hover:border-black
+                   hover:text-black hover:scale-125 transition-all duration-300 ease-in-out">
+                    Retry
+                  </button>
+                  <button className="w-[160px] h-[50px] bg-black text-white text-2xl rounded-md border-2
+                   border-white hover:bg-white hover:border-black hover:text-black 
+                   hover:scale-125 transition-all duration-300 ease-in-out">
+                      Go Home
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )
       }

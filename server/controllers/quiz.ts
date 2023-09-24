@@ -1,4 +1,4 @@
-import express , {Request , Response} from 'express';
+import  {Request , Response} from 'express';
 import  Quiz  from '../models/quiz';
 import  User  from '../models/user';
 import Assignment from '../models/assignment';
@@ -75,7 +75,7 @@ export const getSingleQuiz = async (req: Request, res: Response) => {
         const {quizId} = req.params;
 
         const quiz = await Quiz.findById(quizId)
-        // .populate('leaderboard')
+        .populate('leaderboard')
         .populate('createdBy')
         .populate('assignment')
         .populate('assignment');

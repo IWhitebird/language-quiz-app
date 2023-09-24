@@ -93,12 +93,12 @@ const Quiz = () => {
         </div>
 
         {isActive === "Assignment" ? (
-          <div className="flex flex-row gap-2 text-xl w-[80%] mx-auto font-bold">
+          <div className="flex flex-col gap-5 text-xl w-[80%] mx-auto font-bold">
             {quiz?.assignment.map((assi: IAssignment, i: number) => {
               return (
                 <div
                   key={i}
-                  className="w-full h-[3rem] items-center p-5 flex flex-row justify-between border-black border-2 rounded md "
+                  className="hover:scale-110 transition-all duration-300 ease-in-out hover:bg-black hover:text-white w-full h-[3rem] items-center p-5 flex flex-row justify-between border-black border-2 rounded md "
                 >
                   <h4>{assi.name}</h4>
                   <h5>{assi.description}</h5>
