@@ -17,7 +17,8 @@ const Dashboard = () => {
 
         <div className="flex justify-between">
           <h1 className="text-4xl font-semibold">Dasboard</h1>
-          <Link to="/home" className="text-3xl hover:translate-x-[-3px] hover:scale-105">
+          <Link to="/home" className="text-4xl hover:translate-x-[-5px] hover:scale-105 transition-all
+           duration-200 ease-in-out">
             <BiArrowBack />
             </Link>
         </div>

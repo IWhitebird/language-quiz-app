@@ -40,9 +40,12 @@ const Quiz = () => {
   }
 
   const startHandle = () => {
+
+    const time = 1000 * 60 * quiz!.time || 1000 * 60 * 30;
+
     const payload = {
       quizId: Object.values(id)[0],
-      time: new Date(Date.now() + 1000 * 60 * 30),
+      time: new Date(Date.now() + time),
     };
     localStorage.setItem("cur_quiz", JSON.stringify(payload));
     window.location.href = `/quiz/play/${Object.values(id)[0]}`;

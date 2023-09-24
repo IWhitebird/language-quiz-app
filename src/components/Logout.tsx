@@ -24,12 +24,12 @@ const Logout = (props : any) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center backdrop-blur-md">
-    <div className="w-[30%] h-[20%] bg-slate-500 border-2 border-black flex flex-col rounded-lg">
-      <h1 className="text-white text-3xl p-4">
+    <div className="w-[28%] h-[20%] bg-slate-400 border-2 border-black flex flex-col rounded-lg">
+      <h1 className="text-black font-bold text-3xl p-4">
         Are you sure you want to logout?
       </h1>
 
-      <div className="flex flex-row gap-3 justify-evenly text-xl">
+      <div className="flex flex-row gap-3 justify-evenly mt-7 text-xl">
         <button onClick={logoutHandle} className="w-[130px] h-[50px] bg-black text-white hover:scale-110 transition-all duration-200 ease-in-out rounded-lg">
           Logout
         </button>

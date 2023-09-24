@@ -9,7 +9,7 @@ const Card = ({quiz} : {quiz : IQuiz}) => {
 
         <div className="w-[100%] mx-auto">
           <hr className="mt-1" />
-          <h1 className="text-3xl font-bold mt-3">{quiz.name}</h1>
+          <h1 className="text-3xl font-bold mt-3 mb-3">{quiz.name}</h1>
           <h2 className="text-xl min-h-[70px] max-h-[70px] lg:min-h-[120px] lg:max-h-[120px]">{quiz.description.slice(0 ,50)} {quiz.description.length >= 50 ? '...' : ''}</h2>
           <div className="flex flex-col justify-between text-xl">
             <h3 className="text-md">Langauge : <span className="font-bold">{quiz.language}</span></h3>

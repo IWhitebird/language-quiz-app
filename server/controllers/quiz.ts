@@ -4,7 +4,7 @@ import  User  from '../models/user';
 import Assignment from '../models/assignment';
 import Question from '../models/question';
 import QuizAttempt from "../models/quizAttempt";
-import { AuthReq, IQuestion } from '../types';
+import { AuthReq, IAssignment, IQuestion } from '../types';
 import mongoose from 'mongoose';
 import { UploadToCloudinary } from '../utils/imageUpload';
 
@@ -234,6 +234,81 @@ export const createQuestion = async (req: Request, res: Response) => {
         });
 
     } catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server error',
+        });
+    }
+}
+
+export const publishQuiz = async (req: Request, res: Response) => {
+    try{
+        const {quizId} = req.params;
+
+
+        const quiz = await Quiz.findByIdAndUpdate(quizId, {
+            status: 'published'
+          });
+
+        return res.status(200).json({
+            success: true,
+            quiz,
+        });
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server error',
+        });
+    }
+}
+
+export const deleteQuiz = async (req: Request, res: Response) => {
+    try{
+        const {quizId} = req.params;
+
+        const quiz = await Quiz.findById(quizId);
+
+        if(!quiz){
+            return res.status(400).json({success : false , error: 'Quiz not found' });
+        }
+
+        const assignments : IAssignment[] = await Assignment.find({ quiz: quizId });
+
+        for (let assignment of assignments) {
+
+            for( const question of assignment.questions){
+                await Question.findByIdAndDelete(question);
+            }
+            Assignment.findByIdAndDelete(assignment._id);
+        }   
+
+
+        for(const quizAId of quiz.leaderboard){
+            const quizA = await QuizAttempt.findById(quizAId);
+
+            await User.findByIdAndUpdate(quizA?.user, {
+                $pull: { recent: quizA?._id }
+            });
+
+            await QuizAttempt.findByIdAndDelete(quizA?._id);
+        }
+
+        const user = await User.findByIdAndUpdate(quiz.createdBy , {
+                $pull: { quizes: quiz._id }
+            });   
+
+        await Quiz.findByIdAndDelete(quizId);
+
+        res.status(200).json({
+            success: true,
+            message: 'Quiz deleted successfully',
+        });
+
+    }
+    catch(error){
         console.log(error);
         return res.status(500).json({
             success: false,

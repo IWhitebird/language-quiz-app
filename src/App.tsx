@@ -8,6 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import PlayQuiz from './pages/PlayQuiz';
 import Dashboard from './pages/dashboard';
 import PrivateRoute from './components/CloseRoute';
+import Workshop from './pages/workshop';
 
 function App() {
 
@@ -37,6 +38,12 @@ function App() {
           <Route path='/quiz/play/:id' element={
             <PrivateRoute>
               <PlayQuiz />
+            </PrivateRoute>
+          } />
+
+          <Route path='/workshop' element={
+            <PrivateRoute>
+              <Workshop />
             </PrivateRoute>
           } />
 
