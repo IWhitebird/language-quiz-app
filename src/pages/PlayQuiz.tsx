@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { IQuiz } from "../types";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
-import { RootState } from "../reducer";
 import { AiOutlineClose} from "react-icons/ai";
 
 const PlayQuiz = () => {
@@ -13,7 +11,7 @@ const PlayQuiz = () => {
   const char = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
   const [modal, setModal] = useState<boolean>(false);
   const [result, setResult] = useState<any>();
-  const user = useSelector((state: RootState) => state.user.user);
+
   
   
   const localquiz = localStorage.getItem("cur_quiz");
