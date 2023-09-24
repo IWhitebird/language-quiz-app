@@ -52,6 +52,8 @@ export interface IQuiz extends mongoose.Document{
     createdAt: Date;
     verified: boolean;
     language: string;
+    status: string;
+    time: number;
 }
 
 export interface IQuizAttempt extends mongoose.Document{

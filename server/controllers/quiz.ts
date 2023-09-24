@@ -9,7 +9,6 @@ import mongoose from 'mongoose';
 import { UploadToCloudinary } from '../utils/imageUpload';
 
 import dotenv from 'dotenv';
-import { combineReducers } from 'redux';
 dotenv.config();
 
 export const getAllQuiz = async (req: Request, res: Response) => {
@@ -273,11 +272,10 @@ export const submitQuiz = async (req: AuthReq, res: Response) => {
             totalscore
         });
 
-        const language = await Quiz.findById(quizId).select('language');
+        const lang = await Quiz.findById(quizId).select('language');
 
         const progressPayload = {
-            date : Date.now(),
-            language : language,
+            language : lang?.language,
             score : totalscore,
         }
 

@@ -87,7 +87,7 @@ export async function login(req: Request, res: Response) {
       });
     }
 
-    const user = await User.findOne({email});
+    const user = await User.findOne({email}).populate('recent').populate('quizes');
 
     if(!user){
       return res.status(400).json({

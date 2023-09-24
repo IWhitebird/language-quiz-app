@@ -36,6 +36,15 @@ const quizSchema = new mongoose.Schema<IQuiz>({
         type: String,
         required: true,
     },
+    status: {
+        type: String,
+        enum: ["draft", "published"],
+        default: "draft",
+    },
+    time: {
+        type: Number,
+        required: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../reducer";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
+import Logout from "../components/Logout";
 
 const Dashboard = () => {
   const user = useSelector((state: RootState) => state.user.user);
@@ -47,7 +48,7 @@ const Dashboard = () => {
         cursor-pointer border-2 border-black rounded-lg p-5 text-xl hover:scale-105
         ${selected === "Past" ? "bg-slate-400" : ""}`}
         >
-          <h2 className="font-semibold">Past Quizzes</h2>
+          <h2 className="font-semibold">Past Attempt's</h2>
         </div>
 
         <div
@@ -68,13 +69,13 @@ const Dashboard = () => {
                 <div className="h-[30%] flex flex-row gap-10">
                   <div className="w-[180px] ">
                     <img src={user?.image} className="rounded-lg"></img>
-                    <div
+                    {/* <div
                       className="rounded-md h-[50px] flex justify-center items-center text-xl
                    mt-5 bg-slate-800 hover:scale-110 text-white text-center transition-all duration-300
                    ease-in-out "
                     >
                       Upload Image
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="lg:ml-7">
@@ -104,31 +105,12 @@ const Dashboard = () => {
         {selected === "Past" && 
         <div className="h-screen flex justify-center items-center">
             <div>
-
+                  
             </div>
         </div>}
 
         {selected === "Logout" && 
-        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-md">
-          <div className="w-[30%] h-[20%] bg-slate-500 border-2 border-black flex flex-col rounded-lg">
-            <h1 className="text-white text-3xl p-4">
-              Are you sure you want to logout?
-            </h1>
-
-            <div className="flex flex-row gap-3 justify-evenly text-xl">
-              <button className="w-[130px] h-[50px] bg-black text-white hover:scale-110 transition-all duration-200 ease-in-out rounded-lg">
-                Logout
-              </button>
-              <button
-                onClick={() => setSelected('Profile')}
-                className="w-[130px] h-[50px] bg-black text-white hover:scale-110 transition-all duration-200 ease-in-out rounded-lg"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-
+          <Logout fun={setSelected} val={'profile'} />
           }
       </div>
     </div>

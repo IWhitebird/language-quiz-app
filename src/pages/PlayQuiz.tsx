@@ -3,6 +3,7 @@ import { IQuiz } from "../types";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { AiOutlineClose} from "react-icons/ai";
+import Loading from "../components/Loading";
 
 const PlayQuiz = () => {
   const [quiz, setQuiz] = useState<IQuiz>();
@@ -11,14 +12,14 @@ const PlayQuiz = () => {
   const char = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
   const [modal, setModal] = useState<boolean>(false);
   const [result, setResult] = useState<any>();
+  const [noCheat , setNoCheat] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  
   
   const localquiz = localStorage.getItem("cur_quiz");
   const timeValue = new Date(JSON.parse(localquiz!).time);
   const timeRemaining = timeValue.getTime() - Date.now();
   const quizId = JSON.parse(localquiz!).quizId;
-
 
   useEffect(() => {
     fetchCompleteQuiz();
@@ -41,6 +42,11 @@ const PlayQuiz = () => {
 
   async function submitHandle() {
     try{
+      if(!noCheat) {
+        toast.error("Please check the box!!", {icon: "🤔"});
+        return
+      }
+      setLoading(true);
       setModal(true);
       console.log(answers)
       if(answers === undefined) {
@@ -66,18 +72,35 @@ const PlayQuiz = () => {
       );
 
       console.log(response.data.quizAttempt);
-      setResult(response.data)
+      setResult(response.data);
     }
     catch(error){
       console.error(error);
     }
+    finally{
+      setLoading(false);
+    }
   }
 
-  async function timeOverHandle() {
+  function timeOverHandle() {
     toast("Time Over!!", { icon: "⏰" });
     setTimeout(() => {
       submitHandle();
-    }, 1000)
+    }, 500)
+  }
+
+   const overHandle =  () => {
+    setTimeout(() => {
+      window.location.href = '/home';
+    }, 500)
+    setModal(false);
+  }
+
+  const retryHandle = () => {
+    setTimeout(() => {
+      window.location.href = `/quiz/${quizId}`;
+    }, 500)
+    setModal(false); 
   }
 
   useEffect(() => {
@@ -125,6 +148,7 @@ const PlayQuiz = () => {
 
   async function fetchCompleteQuiz() {
     try {
+      setLoading(true);
       const token = localStorage.getItem("token");
       if (!localquiz) return;
 
@@ -142,6 +166,9 @@ const PlayQuiz = () => {
     } catch (error) {
       console.error(error);
     }
+    finally{
+      setLoading(false);
+    }
   }
 
   const changeHandle = (e: any, quid: any) => {
@@ -153,22 +180,17 @@ const PlayQuiz = () => {
     setAnswers(newAns);
   };
 
-  const overHandle = () => {
-    setTimeout(() => {
-      window.location.href = '/home';
-    }, 1000)
-    setModal(false);
-  }
-
-  const retryHandle = () => {
-    setTimeout(() => {
-      window.location.href = `/quiz/${quizId}`;
-    }, 1000)
-    setModal(false); 
-  }
 
   return (
     <>
+
+    {loading && (
+        <div className="fixed inset-0 flex items-center justify-center backdrop-blur-lg">
+          <Loading />
+        </div>
+      )
+    }
+
       <div>
         <div className="absolute w-full ">
           <div
@@ -231,7 +253,7 @@ const PlayQuiz = () => {
                           {que.options?.map((opt: any, i: number) => (
                             <div
                               key={i}
-                              className={`text-2xl flex items-center border-2 rounded-md border-black p-2 transition-all duration-300 ease-in-out 
+                              className={`hover:scale-[1.02] text-2xl flex items-center border-2 rounded-md border-black p-2 transition-all duration-300 ease-in-out 
                             ${
                               answers !== undefined && answers[que._id] === opt
                                 ? "bg-slate-400"
@@ -265,13 +287,30 @@ const PlayQuiz = () => {
             );
           })}
         </div>
-        <div className="w-[80%] mx-auto mt-10 mb-10 flex justify-center">
-          <button onClick={submitHandle} className="w-[160px] h-[50px] bg-black text-white text-2xl rounded-md border-2 border-white hover:bg-white hover:border-black hover:text-black hover:scale-125 transition-all duration-300 ease-in-out">Submit</button>
+        
+        <div className="w-[80%] mx-auto mt-10 mb-10 flex flex-col justify-center items-center">
+          <div className="text-3xl flex justify-center content-center gap-5 mb-10">
+          <input
+            type="checkbox"
+            onChange={(e) => setNoCheat(e.target.checked)}
+            name="cheat"
+            id="cheat"
+            className="w-[20px]"
+          />
+            <p className="font-bold">I didn't cheat</p>
+          </div>
+          <div>
+          <button onClick={submitHandle} className="w-[160px] h-[50px] bg-black text-white text-2xl 
+          rounded-md border-2 border-white hover:bg-white hover:border-black hover:text-black hover:scale-125
+           transition-all duration-300 ease-in-out">Submit</button>
+          </div>
         </div>
+        
       </div>
 
       {
         modal && (
+         loading ? <Loading /> : (
           <div  className="w-screen h-screen backdrop-blur-sm fixed">
             <div className="w-full h-full flex justify-center items-center content-center">
               <div className="w-[60%] h-[60%] bg-white flex flex-col border-2 rounded-lg border-black" >
@@ -290,8 +329,8 @@ const PlayQuiz = () => {
                 <div className="lg:text-3xl font-bold lg:mt-10 text-center">
                   Total Score is : <br /> <span className="lg:text-5xl text-green-950">{result?.quizAttempt?.totalscore}</span>
                 </div>
-                <div className="lg:text-3xl font-bold lg:mt-10 text-center">
-                  You got <span className="text-3xl">{result?.correct}</span> correct answers
+                <div className="lg:text-5xl font-bold lg:mt-10 text-center">
+                  You got <span className="text-5xl">{result?.correct}</span> correct answers
                 </div>
                 <div className="w-full mx-auto mt-20 flex flex-row  justify-center gap-9">
                   <button onClick={retryHandle} className="w-[160px] h-[50px] bg-black text-white text-2xl 
@@ -308,6 +347,8 @@ const PlayQuiz = () => {
               </div>
             </div>
           </div>
+
+          )
         )
       }
     </>
