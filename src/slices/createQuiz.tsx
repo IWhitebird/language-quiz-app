@@ -5,14 +5,14 @@ import { IQuiz } from '../types';
 interface QuizState {
     data : IQuiz | null;
     mode : string;
-    making : boolean;
+    state : boolean;
 }
 
 
 const initialState : QuizState = {
     data : null,
     mode : 'quiz',
-    making : false,
+    state : localStorage.getItem('state') ? true : false,
 }
 
 const quizSlice = createSlice({
@@ -21,14 +21,14 @@ const quizSlice = createSlice({
     reducers : {
         setQuiz(state : QuizState , action : PayloadAction<IQuiz>) {
             state.data = action.payload;
-            state.making = true;
+            state.state = true;
         },
         setMode(state : QuizState , action : PayloadAction<string>) {
             state.mode = action.payload;
         },
         removeQuiz(state : QuizState) {
             state.data = null;
-            state.making = false;
+            state.state = false;
         }
     },
 });

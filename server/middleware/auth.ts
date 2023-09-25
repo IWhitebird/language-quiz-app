@@ -9,8 +9,6 @@ export async function auth(req : AuthReq , res : Response , next : NextFunction)
     try{
         const token = req.header('Authorization')?.replace('Bearer ', '') || req.cookies.token;
 
-        console.log(req.header('Authorization'))
-
         if(!token){
             return res.status(401).json({
                 success: false,

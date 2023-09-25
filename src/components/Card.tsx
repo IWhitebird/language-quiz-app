@@ -2,7 +2,8 @@
 import { Link } from "react-router-dom"
 import { IQuiz } from "../types"
 
-const Card = ({quiz , type } : {quiz : IQuiz , type : string}) => {
+const Card = ({quiz , type , editHandle } : {quiz : IQuiz , type : string , editHandle? : any}) => {
+
   return (
     <div className="bg-white border-[3px] shadow-md shadow-black sha p-2 rounded-sm border-black w-full h-[450px] lg:w-[22rem] lg:h-[550px] hover:scale-[1.1] transition-all ease-in-out duration-300 ">
         <img src={quiz?.image} className="w-[100%] h-[40%] mx-auto" alt="img"/>
@@ -20,11 +21,11 @@ const Card = ({quiz , type } : {quiz : IQuiz , type : string}) => {
             (
               <div className="mt-2 relative flex flex-row justify-between">
 
-                <Link to={`/quiz/quizMake/${quiz._id}`}>
+                <div onClick={editHandle}>
                   <button className="mt-4 ml-2 w-[130px] h-[40px] text-xl bg-black text-white hover:scale-110 transition-all ease-in-out duration-300 hover:bg-white border-black hover:border-2 hover:text-black ">
                     Edit
                   </button>
-                </Link>
+                </div>
     
                 <Link to={`/quiz/${quiz._id}`}>
                   <button className="mr-2 rounded-full w-[70px] h-[70px] text-xl bg-black text-white hover:scale-110 transition-all ease-in-out duration-300 hover:bg-white border-black hover:border-2 hover:text-black ">

@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { AiOutlineClose } from "react-icons/ai";
@@ -33,11 +33,19 @@ const QuizMake = () => {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
 
+  
   const data = useSelector((state: RootState) => state.quiz.data);
-  const state = useSelector((state: RootState) => state.quiz.making);
+  const state = useSelector((state: RootState) => state.quiz.state);
   const mode = useSelector((state: RootState) => state.quiz.mode);
 
-  console.log(data);
+  useEffect(() => {
+    console.log(state)
+    if(state == true && data == null){
+      fetchComplete();
+    }
+  }, []);
+
+  console.log("mydata" , data);
 
   const [formData, setFormData] = useState<FormDataQuiz>({
     name: "",
@@ -88,8 +96,6 @@ const QuizMake = () => {
     setQuestionData({ ...questionData, [name]: value });
   };
 
-  console.log("q", questionData);
-
   const instructionHandle = (e: any) => {
     if (insHelper === "") return;
     setAssignmentData((prevData) => ({
@@ -124,12 +130,51 @@ const QuizMake = () => {
     }));
   };
 
+  async function fetchComplete() {
+    const load = toast.loading("Fetching Quiz");
+    try {
+      const localId = localStorage.getItem("state");
+      
+      if(!localId) return window.location.href = "/workshop";
+
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(
+        import.meta.env.VITE_API_URL + `/quiz/getCompleteQuiz/${localId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        dispatch(setQuiz(response.data.quiz));
+        setFormData({
+          name: response.data.quiz.name,
+          description: response.data.quiz.description,
+          language: response.data.quiz.language,
+          time: response.data.quiz.time,
+        });
+        setPreviewSource(response.data.quiz.image);
+      }
+
+    } catch (error) {
+      console.error(error);
+    } 
+    finally {
+      toast.dismiss(load);
+    }
+  }
+
   async function createQuiz(e: FormEvent) {
     e.preventDefault();
     const load = toast.loading("Creating Quiz");
     try {
+
       if (state == true) {
         dispatch(setMode("assignment"));
+        return;
       }
 
       if (
@@ -161,7 +206,6 @@ const QuizMake = () => {
         }
       );
 
-      console.log(response.data);
       if (response.status === 200) {
         toast.success("Quiz Created Successfully");
         dispatch(setQuiz(response.data.quiz));
@@ -212,7 +256,6 @@ const QuizMake = () => {
         }
       );
 
-      console.log(response.data);
       if (response.status === 200) {
         toast.success("Quiz Saved Successfully");
         dispatch(setQuiz(response.data.quiz));
@@ -253,7 +296,6 @@ const QuizMake = () => {
         dispatch(setQuiz(response.data.quiz));
         setAssignmentModal(false);
       }
-      console.log(response.data);
     } catch (err) {
       toast.error("Something went wrong");
       console.error(err);
@@ -408,7 +450,6 @@ const QuizMake = () => {
     };
   };
 
-  console.log(assignmentData);
 
   return (
     <>
@@ -440,7 +481,7 @@ const QuizMake = () => {
                   type="text"
                   id="name"
                   name="name"
-                  value={data?.name || formData.name}
+                  value={formData.name}
                   onChange={handleInputChange}
                   className="w-full border-2 border-black text-3xl rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                 />
@@ -455,7 +496,7 @@ const QuizMake = () => {
                 <textarea
                   id="description"
                   name="description"
-                  value={data?.description || formData.description}
+                  value={formData.description}
                   onChange={handleInputChange}
                   className="w-full border-2 border-black text-3xl rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                 />
@@ -471,7 +512,7 @@ const QuizMake = () => {
                   type="text"
                   id="language"
                   name="language"
-                  value={data?.language || formData.language}
+                  value={formData.language}
                   onChange={handleInputChange}
                   className="w-full border-2 border-black text-3xl rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                 />
@@ -487,7 +528,7 @@ const QuizMake = () => {
                   type="number"
                   id="time"
                   name="time"
-                  value={data?.time || formData.time}
+                  value={formData.time}
                   onChange={handleInputChange}
                   className="w-full border-2 border-black text-3xl rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                 />
@@ -532,7 +573,7 @@ const QuizMake = () => {
               <div className="border-2 bg-white border-black rounded-lg w-full  mx-auto mt-5 mb-5">
                 {previewSource ? (
                   <img
-                    src={data?.image || previewSource}
+                    src={previewSource}
                     alt="Add thumbnail"
                     className="rounded-xl w-full min-h-[350px] max-h-[350px] object-fit"
                   />
@@ -777,6 +818,10 @@ const QuizMake = () => {
                                 />
                               </div>
                               <div className="mx-auto my-auto mb-2">
+                                <div className="block text-gray-700 font-bold text-3xl mb-3">
+                                  Correct Ans :
+
+                                </div>
                                 <select
                                   name="answer"
                                   id="answer"
@@ -837,6 +882,7 @@ const QuizMake = () => {
               )}
 
               <div className="flex flex-col gap-6">
+              
                 <div className="mt-10 flex justify-end">
                   <button
                     onClick={() => setAssignmentModal(true)}

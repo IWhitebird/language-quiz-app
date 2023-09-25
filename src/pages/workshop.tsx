@@ -32,10 +32,15 @@ const Workshop = () => {
     }
   }
 
+
   useEffect(() => {
     refetchUser();
   } , []);
 
+  async function editHandle(quizid : any) {
+      localStorage.setItem('state' , quizid);
+      window.location.href = '/workshop/quizMake';
+  }
 
   return (
     <>
@@ -66,8 +71,8 @@ const Workshop = () => {
         <div className="grid grid-cols-1 mt-4 md:grid-col-2 lg:grid-cols-3 justify-evenly lg:ml-14 gap-y-20">
 
           {
-            user?.quizes.map((quiz, index) => (
-              <Card key={index} quiz={quiz} type='workshop' />
+            user?.quizes?.map((quiz, index) => (
+              <Card key={index} quiz={quiz} type='workshop' editHandle={() => editHandle(quiz._id)} />
             ))
           }
 
