@@ -86,7 +86,7 @@ const Home = () => {
                   ?.filter(
                     (q) => q.language === selectedLang || selectedLang === "All"
                   )
-                  .map((quiz: IQuiz, i: number) => <Card key={i} quiz={quiz} />)
+                  .map((quiz: IQuiz, i: number) => <Card key={i} quiz={quiz} type='home' />)
               ) : (
                 <div className="flex items-center justify-center col-span-3">
                   <p className="text-4xl font-bold">

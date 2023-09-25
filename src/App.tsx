@@ -9,6 +9,7 @@ import PlayQuiz from './pages/PlayQuiz';
 import Dashboard from './pages/dashboard';
 import PrivateRoute from './components/CloseRoute';
 import Workshop from './pages/workshop';
+import QuizMake from './pages/quizMake';
 
 function App() {
 
@@ -44,6 +45,12 @@ function App() {
           <Route path='/workshop' element={
             <PrivateRoute>
               <Workshop />
+            </PrivateRoute>
+          } />
+
+          <Route path='/workshop/quizMake' element={
+            <PrivateRoute>
+              <QuizMake />
             </PrivateRoute>
           } />
 
