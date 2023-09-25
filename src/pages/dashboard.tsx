@@ -9,8 +9,6 @@ const Dashboard = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const [selected, setSelected] = useState("Profile");
 
-  console.log(user);
-
   return (
     <div className="flex gap-7 h-screen">
       <div className="w-1/4 bg-gray-200 p-4 flex flex-col gap-5">

@@ -25,6 +25,7 @@ export interface IProgress extends mongoose.Document {
 }
 
 export interface IAssignment extends mongoose.Document {
+  _id: mongoose.Schema.Types.ObjectId;
   name: string;
   description: string;
   instructions: string[];
@@ -33,6 +34,7 @@ export interface IAssignment extends mongoose.Document {
 }
 
 export interface IQuestion extends mongoose.Document {
+  _id: mongoose.Schema.Types.ObjectId;
   question: string;
   options: string[];
   image: string;

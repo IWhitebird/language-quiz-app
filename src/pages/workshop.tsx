@@ -3,15 +3,39 @@ import Navbar from "../components/Navbar"
 import { RootState } from "../reducer";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
-
+import { useEffect } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../slices/userSlice";
 
 const Workshop = () => {
 
   const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem('token');
+  
+  async function refetchUser() {
+    try{
+      const response = await axios.get(import.meta.env.VITE_API_URL + '/auth/me', 
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
-  const createHandle = () => {
-    console.log("Create New")
+      if(response.statusText === 'OK') {
+        dispatch(setUser(response.data.user));
+      }
+    }
+    catch(error){
+      console.log(error);
+    }
   }
+
+  useEffect(() => {
+    refetchUser();
+  } , []);
+
 
   return (
     <>

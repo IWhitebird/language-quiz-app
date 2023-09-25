@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import OtpGenerator from "otp-generator";
+import { AuthReq } from "../types";
 
 dotenv.config();
 
@@ -87,7 +88,7 @@ export async function login(req: Request, res: Response) {
       });
     }
 
-    const user = await User.findOne({email}).populate('recent').populate('quizes');
+    const user = await User.findOne({email}).populate('recent').populate('quizes')
 
     if(!user){
       return res.status(400).json({
@@ -177,3 +178,28 @@ export async function sendOTP(req: Request, res: Response) {
       });
   }
 };
+
+export async function me(req: AuthReq, res: Response) {
+  try{
+    const user = await User.findById(req.user.id).select('-password').populate('recent').populate('quizes');
+
+    if(!user){
+      return res.status(400).json({
+        success: false,
+        message: "User doesn't exist",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      user
+    });
+  }
+  catch(error){
+    console.log(error);
+    return res.status(500).json({
+        success : false ,
+        message: 'Internal Server error' 
+      });
+  }
+}

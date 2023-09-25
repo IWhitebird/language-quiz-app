@@ -48,7 +48,6 @@ const PlayQuiz = () => {
       }
       setLoading(true);
       setModal(true);
-      console.log(answers)
       if(answers === undefined) {
         toast.error("Please attempt the quiz!!", {icon: "🤔"});
         setTimeout(() => {
@@ -64,14 +63,8 @@ const PlayQuiz = () => {
           answers: answers,
           timeRemaining : timeRemaining
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
       );
 
-      console.log(response.data.quizAttempt);
       setResult(response.data);
     }
     catch(error){
@@ -162,7 +155,6 @@ const PlayQuiz = () => {
       );
 
       setQuiz(response.data.quiz);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }

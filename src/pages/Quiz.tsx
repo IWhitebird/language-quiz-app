@@ -35,7 +35,6 @@ const Quiz = () => {
       console.error(err);
     } finally {
       setLoading(false);
-      console.log("Quiz", quiz);
     }
   }
 

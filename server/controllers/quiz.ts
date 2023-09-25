@@ -116,13 +116,14 @@ export const createQuiz = async (req: AuthReq, res: Response) => {
             name,
             description,
             language,
+            time,
         } = req.body;
 
         const createdBy = req.user.id;
 
         const thumbnail = req.files.thumbnail;
         
-        if(!name || !description || !language){
+        if(!name || !description || !language || !time || !thumbnail){
             return res.status(400).json({success : false , error: 'Please enter all fields' });
         }
 
@@ -141,13 +142,13 @@ export const createQuiz = async (req: AuthReq, res: Response) => {
             createdBy,
             language,
             verified,
+            time,
             image: uploadImg.secure_url,
         });
 
-        user?.quizes.push(quiz._id);
-
-        await user?.save();
-
+        await User.findByIdAndUpdate(createdBy , {
+            $push: { quizes: quiz._id }
+        });
 
         return res.status(200).json({
             success: true,
@@ -185,12 +186,19 @@ export const createAssignment = async (req: Request, res: Response) => {
             req.params.quizId,
             { $push: { assignment: assignment._id } },
             { new: true }
-          );
+          ).populate('assignment').populate({
+            path: 'assignment',
+            populate: {
+                path: 'questions',
+                model: 'Question',
+            }
+        });
+
           
 
         return res.status(200).json({
             success: true,
-            assignment,
+            quiz : updatedQuiz,
         });
 
     } catch(error){
@@ -216,21 +224,31 @@ export const createQuestion = async (req: Request, res: Response) => {
             return res.status(400).json({success : false , error: 'Please enter all fields' });
         }
 
+        const parsedOptions = await JSON.parse(options);
+
         const saveQuestion = await Question.create({
             question,
-            options,
+            options : parsedOptions,
             answer,
             points
         });
 
         const SaveToAssignment = await Assignment.findByIdAndUpdate(req.params.assignmentId, {
             $push: { questions: saveQuestion._id },
-            $inc: { maxscore: points } // Increment maxscore by points
+            $inc: { maxscore: points } 
         }, { new: true });
+
+        const quiz = await Quiz.findById(req.params.quizId).populate('assignment').populate({
+            path: 'assignment',
+            populate: {
+                path: 'questions',
+                model: 'Question',
+            }
+        });
                   
         return res.status(200).json({
             success: true,
-            saveQuestion,
+            quiz : quiz,
         });
 
     } catch(error){
@@ -242,18 +260,88 @@ export const createQuestion = async (req: Request, res: Response) => {
     }
 }
 
-export const publishQuiz = async (req: Request, res: Response) => {
+export const publishQuiz = async (req: AuthReq, res: Response) => {
     try{
         const {quizId} = req.params;
 
+        if(!quizId){
+            return res.status(400).json({success : false , error: 'Please enter all fields' });
+        }
+
 
         const quiz = await Quiz.findByIdAndUpdate(quizId, {
-            status: 'published'
+            $set: { status: 'published' }
           });
 
         return res.status(200).json({
             success: true,
-            quiz,
+        });
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server error',
+        });
+    }
+}
+
+export const submitQuiz = async (req: AuthReq, res: Response) => {
+    try{
+        const {answers , timeRemaining} = req.body;
+
+        const {quizId} = req.params;
+
+        if(!answers || !timeRemaining){
+            return res.status(400).json({success : false , error: 'Please enter all fields' });
+        }
+
+        let totalscore : number = 0;
+        let correct = 0;
+
+        for(const key in answers){
+            const question = await Question.findById(new mongoose.Types.ObjectId(key));
+            if(question?.answer === answers[key].toString()){
+                totalscore += question!.points;
+                correct++;
+            }
+        }
+
+        totalscore = Math.floor(totalscore * timeRemaining / 1000);
+
+        let quizAttempt = await QuizAttempt.create({
+            quiz: quizId,
+            user: req.user.id,
+            totalscore
+        });
+
+        const lang = await Quiz.findById(quizId).select('language');
+
+        const progressPayload = {
+            language : lang?.language,
+            score : totalscore,
+        }
+
+        const updateUser = await User.findByIdAndUpdate(
+            req.user.id,
+            {
+              $push: {
+                recent: quizAttempt._id,
+                progress: progressPayload
+              }
+            },
+            { new: true }
+          );
+          
+        const updateQuiz = await Quiz.findByIdAndUpdate(quizId, {
+            $push: { leaderboard: quizAttempt._id } }, {new : true}
+        );
+
+        res.status(200).json({
+            success: true,
+            message: 'Quiz submitted successfully',
+            quizAttempt,
+            correct
         });
     }
     catch(error){
@@ -317,66 +405,75 @@ export const deleteQuiz = async (req: Request, res: Response) => {
     }
 }
 
-export const submitQuiz = async (req: AuthReq, res: Response) => {
+export const deleteAssignment = async (req: Request, res: Response) => {
     try{
-        const {answers , timeRemaining} = req.body;
+        const quizId = req.params.quizId;
 
-        const {quizId} = req.params;
+        const assignId = req.params.assignId;
 
-        if(!answers || !timeRemaining){
-            return res.status(400).json({success : false , error: 'Please enter all fields' });
-        }
 
-        let totalscore : number = 0;
-        let correct = 0;
+        const assignment = await Assignment.findById(assignId)
 
-        for(const key in answers){
-            const question = await Question.findById(new mongoose.Types.ObjectId(key));
-            console.log(question)
-            if(question?.answer === answers[key].toString()){
-                totalscore += question!.points;
-                correct++;
+        if(assignment?.questions !== undefined){
+            for(let question of assignment?.questions){
+                await Question.findByIdAndDelete(question);
             }
         }
 
-        totalscore = Math.floor(totalscore * timeRemaining / 1000);
-
-        let quizAttempt = await QuizAttempt.create({
-            quiz: quizId,
-            user: req.user.id,
-            totalscore
-        });
-
-        const lang = await Quiz.findById(quizId).select('language');
-
-        const progressPayload = {
-            language : lang?.language,
-            score : totalscore,
-        }
-
-        const updateUser = await User.findByIdAndUpdate(
-            req.user.id,
-            {
-              $push: {
-                recent: quizAttempt._id,
-                progress: progressPayload
-              }
-            },
-            { new: true }
-          );
-          
-        const updateQuiz = await Quiz.findByIdAndUpdate(quizId, {
-            $push: { leaderboard: quizAttempt._id } }, {new : true}
-        );
+        await Assignment.findByIdAndDelete(assignId);
         
-         
-        console.log(totalscore)
+        const updateQuid = await Quiz.findByIdAndUpdate(quizId, {
+            $pull: { assignment: assignId }
+        }, {new : true}).populate('assignment').populate({
+            path: 'assignment',
+            populate: {
+                path: 'questions',
+                model: 'Question',
+            }
+        });;
+        
 
         res.status(200).json({
             success: true,
-            message: 'Quiz submitted successfully',
-            quizAttempt,
-            correct
+            message: 'Assignment deleted successfully',
+            quiz: updateQuid,
+        });
+
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server error',
+        });
+    }
+}
+
+export const deleteQuestion = async (req: Request, res: Response) => {
+    try{
+        const quizId = req.params.quizId;
+        const assignId = req.params.assignId;
+        const quesId = req.params.quesId;
+
+        await Assignment.findByIdAndUpdate(assignId ,
+            { $pull: { questions: quesId } },
+            { new: true }
+          );
+
+        await Question.findByIdAndDelete(quesId);
+
+        const updateQuid = await Quiz.findById(quizId).populate('assignment').populate({
+            path: 'assignment',
+            populate: {
+                path: 'questions',
+                model: 'Question',
+            }
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Question deleted successfully',
+            quiz: updateQuid,
         });
     }
     catch(error){
