@@ -46,7 +46,7 @@ const Dashboard = () => {
         }
       );
 
-      if (response.statusText === "OK") {
+      if (response.data.success === true) {
         dispatch(setUser(response.data.user));
       }
     } catch (error) {

@@ -148,7 +148,7 @@ const QuizMake = () => {
         }
       );
 
-      if (response.status === 200) {
+      if (response.data.success === true) {
         dispatch(setQuiz(response.data.quiz));
         setFormData({
           name: response.data.quiz.name,
@@ -206,7 +206,7 @@ const QuizMake = () => {
         }
       );
 
-      if (response.status === 200) {
+      if (response.data.success === true) {
         toast.success("Quiz Created Successfully");
         dispatch(setQuiz(response.data.quiz));
         dispatch(setMode("assignment"));
@@ -256,7 +256,7 @@ const QuizMake = () => {
         }
       );
 
-      if (response.status === 200) {
+      if (response.data.success === true) {
         toast.success("Quiz Saved Successfully");
         dispatch(setQuiz(response.data.quiz));
         setTimeout(() => {
@@ -291,7 +291,7 @@ const QuizMake = () => {
         }
       );
 
-      if (response.status === 200) {
+      if (response.data.success === true) {
         toast.success("Assignment Created Successfully");
         dispatch(setQuiz(response.data.quiz));
         setAssignmentModal(false);
@@ -322,7 +322,7 @@ const QuizMake = () => {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.data.success === true) {
         toast.success("Assignment Deleted Successfully");
         dispatch(setQuiz(response.data.quiz));
       }
@@ -364,7 +364,7 @@ const QuizMake = () => {
         }
       );
 
-      if (response.status === 200) {
+      if (response.data.success === true) {
         toast.success("Question Created Successfully");
         dispatch(setQuiz(response.data.quiz));
         setQuestionModal("");
@@ -394,7 +394,7 @@ const QuizMake = () => {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.data.success === true) {
         toast.success("Question Deleted Successfully");
         dispatch(setQuiz(response.data.quiz));
       }
@@ -419,7 +419,7 @@ const QuizMake = () => {
         }
       ); 
 
-      if(response.status === 200){
+      if(response.data.success === true){
         toast.success("Quiz Published Successfully");
         dispatch(removeQuiz());
         window.location.href = "/workshop";

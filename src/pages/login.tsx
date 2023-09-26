@@ -17,6 +17,7 @@ const Login = () => {
   async function submitHandler() {
     let toastId = toast.loading('Loading...');
     if(!email || !password) {
+        toast.dismiss(toastId);
         setFormError('Please enter all fields');
         return;
         }
@@ -27,7 +28,8 @@ const Login = () => {
                 password: password
             })
 
-        if(response.statusText === 'OK') {
+        if(response.data.success === true) {
+            console.log(response)
             toast.success('Logged in successfully');
             localStorage.setItem('token', response.data.token);
             dispatch(setUser(response.data.user));

@@ -26,7 +26,7 @@ const Workshop = () => {
         }
       });
 
-      if(response.statusText === 'OK') {
+      if(response.data.success === true) {
         dispatch(setUser(response.data.user));
       }
     }
@@ -56,7 +56,7 @@ const Workshop = () => {
         }
       });
 
-      if(response.statusText === 'OK') {
+      if(response.data.success === true) {
         toast.success('Quiz Deleted Successfully');
         await refetchUser();
         setDeleteId('');
