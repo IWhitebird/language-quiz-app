@@ -9,8 +9,7 @@ import PlayQuiz from './pages/PlayQuiz';
 import Dashboard from './pages/dashboard';
 import PrivateRoute from './components/CloseRoute';
 import Workshop from './pages/workshop';
-import QuizMake from './pages/quizMake';
-
+import QuizMake from './pages/QuizMake';
 function App() {
 
   return (
