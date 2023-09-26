@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: ["http://localhost:5173" , "http://language-quiz-app.vercel.app"],
+    origin: ["http://localhost:5173" ,"https://language-quiz-app-server.vercel.app", "http://language-quiz-app.vercel.app"],
     credentials: true,
 }));
 

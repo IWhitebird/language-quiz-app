@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)({
-    origin: ["http://localhost:5173", "http://language-quiz-app.vercel.app"],
+    origin: ["http://localhost:5173","https://language-quiz-app-server.vercel.app", "http://language-quiz-app.vercel.app"],
     credentials: true,
 }));
 app.use((0, express_fileupload_1.default)({
