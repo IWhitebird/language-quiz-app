@@ -84,7 +84,7 @@ const Home = () => {
             <div className="grid grid-cols-1 mt-4 md:grid-col-2 lg:grid-cols-3 justify-evenly lg:ml-14 gap-y-20">
               {quizs?.filter(
                 (q) => (q.language === selectedLang || selectedLang === "All") &&
-                       (q.status === "draft")
+                       (q.status === "published")
               ).length > 0 ? (
                 quizs
                   ?.filter(
