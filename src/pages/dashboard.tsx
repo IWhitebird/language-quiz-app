@@ -100,42 +100,43 @@ const Dashboard = () => {
     "November",
     "December",
   ];
-
+  
   const languageMonthlyData: any = {};
-
-  const languages = [
-    ...new Set(user?.progress.map((item: any) => item.language)),
-  ]; // Get unique languages
+  
+  const languages = [...new Set(user?.progress.map((item: any) => item.language))];
   languages.forEach((language: any) => {
     languageMonthlyData[language] = {
-      data: new Array(12).fill(0),
+      data: Array.from({ length: 12 }, () => []),
     };
   });
-
+  
   user?.progress.forEach((item) => {
     const date = new Date(item.date);
     const monthIndex = date.getMonth();
     const score = item.score;
     const language = item.language;
-
-    languageMonthlyData[language].data[monthIndex] += score;
+  
+    languageMonthlyData[language].data[monthIndex].push(score);
   });
-
+  
   const datasets: any = [];
   languages.forEach((language: any) => {
     datasets.push({
-      data: languageMonthlyData[language].data,
+      data: languageMonthlyData[language].data.map((scores: number[]) => {
+        const sum = scores.reduce((acc, score) => acc + score, 0);
+        return scores.length > 0 ? sum / scores.length : 0;
+      }),
       label: language,
       borderColor: getRandomColor(),
       fill: false,
     });
   });
-
+  
   const data = {
     labels: months,
     datasets: datasets,
   };
-
+  
   function getRandomColor() {
     return "#" + Math.floor(Math.random() * 16777215).toString(16);
   }
@@ -205,13 +206,6 @@ const Dashboard = () => {
                 <div className="h-[30%] flex flex-row gap-5">
                   <div className="w-[180px] ">
                     <img src={user?.image} className="rounded-lg"></img>
-                    {/* <div
-                      className="rounded-md h-[50px] flex justify-center items-center text-xl
-                   mt-5 bg-slate-800 hover:scale-110 text-white text-center transition-all duration-300
-                   ease-in-out "
-                    >
-                      Upload Image
-                    </div> */}
                   </div>
 
                   <div className="lg:ml-7">
@@ -234,7 +228,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="w-[70%] border-2 border-black mt-5 mb-10">
+            <div className="w-[70%] border-2 border-black mt-5 mb-[10rem]">
               <Line options={options} data={data} />
             </div>
           </div>
@@ -243,18 +237,19 @@ const Dashboard = () => {
         {selected === "Past" && (
           <>
             <p className="text-6xl font bold ml-9 mt-6">Past Attempt's</p>
-          <div className="h-screen flex justify-center items-center">
-            <div className="w-[70%] mt-[20rem]">
-              {user?.recent.map((item: any) => (
+          <div className="h-screen flex justify-center ">
+            <div className="w-[70%] mt-[5rem]">
+              {user?.recent.map((item: any ,i) => (
                 <div
-                  key={item.id}
+                  key={i}
                   className="flex flex-col border-2 border-black rounded-lg p-5 mb-5"
                 >
                   <div className="flex justify-between">
                     <div className="flex flex-row justify-between w-full mb-6">
                       <p className="text-4xl font-bold">{item.quiz.name}</p>
-                      <Link to="">
-                        <div className="text-3xl">View</div>
+                      <Link to={`/quiz/${item.quiz._id}`}>
+                        <div className="text-3xl hover:scale-110 transition-all ease-in-out
+                         duration-200">View</div>
                       </Link>
                     </div>
                   </div>

@@ -41,7 +41,7 @@ const Quiz = () => {
 
   const startHandle = () => {
 
-    const time = 1000 * 60 * quiz!.time || 1000 * 60 * 30;
+    const time = (1000 * 60 * quiz!.time || 1000 * 60 * 10) + 2;
 
     const payload = {
       quizId: Object.values(id)[0],
@@ -90,7 +90,7 @@ const Quiz = () => {
             </div>
           </div>
           <div className="w-full lg:w-[60%]">
-            <div className="max-w-full max-h-full border-2 border-black rounded-md">
+            <div className=" mx-auto max-w-[80%] max-h-full border-2 border-black rounded-md">
               <img
                 className="w-full h-auto lg:h-[300px] object-fit"
                 src={quiz?.image}

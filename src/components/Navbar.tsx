@@ -69,7 +69,7 @@ const Navbar = () => {
               </h1>
             </div>
             <div className="flex items-center gap-7">
-              <Link to="/">
+              <Link to="/home">
                 <div className="hover:scale-125 hover:text-green-600 transition-all ease-in-out duration-300">
                   <BiHomeAlt />
                 </div>

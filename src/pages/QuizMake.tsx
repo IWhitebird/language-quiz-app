@@ -442,6 +442,11 @@ const QuizMake = () => {
     }
   }
 
+  const closeHandle = () => {
+    dispatch(removeQuiz());
+    window.location.href = "/workshop";
+  }
+
   const handleFileChange = (e: any) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -464,11 +469,14 @@ const QuizMake = () => {
       <Navbar />
 
       <div className="w-[80%] mx-auto mt-28">
-        <div>
+        <div className="flex flex-row justify-between items-center">
           <h1 className="text-6xl text-start font-semibold mb-4 w-full ">
             Create Quiz
             {mode === "assignment" && <span> / Assignment</span>}
           </h1>
+          <div onClick={closeHandle} className="text-5xl cursor-pointer">
+             <AiOutlineClose />
+          </div>
         </div>
         <div className=" h-[1px] bg-black" />
 
