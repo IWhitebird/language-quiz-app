@@ -25,6 +25,7 @@ const Quiz = () => {
         import.meta.env.VITE_API_URL +
           `/quiz/getSingleQuiz/${Object.values(id)[0]}`,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },

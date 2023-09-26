@@ -40,6 +40,7 @@ const Dashboard = () => {
       const response = await axios.get(
         import.meta.env.VITE_API_URL + "/auth/me",
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },

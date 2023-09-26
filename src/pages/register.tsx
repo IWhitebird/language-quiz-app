@@ -30,6 +30,9 @@ const Register = () => {
         import.meta.env.VITE_API_URL + "/auth/sendOTP",
         {
           email: email,
+        },
+        {
+          withCredentials: true,
         }
       );
 
@@ -61,6 +64,9 @@ const Register = () => {
           email: email,
           password: password,
           otp: otp,
+        },
+        {
+          withCredentials: true,
         }
       );
 

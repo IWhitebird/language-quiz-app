@@ -64,6 +64,7 @@ const PlayQuiz = () => {
           timeRemaining : timeRemaining
         },
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -153,6 +154,7 @@ const PlayQuiz = () => {
       const response = await axios.get(
         import.meta.env.VITE_API_URL + `/quiz/getCompleteQuiz/${quizId}`,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -18,7 +18,10 @@ const Home = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        import.meta.env.VITE_API_URL + "/quiz/getAllquizes"
+        import.meta.env.VITE_API_URL + "/quiz/getAllquizes",
+        {
+          withCredentials: true,
+        }
       );
 
       setQuizs(response.data.quiz);

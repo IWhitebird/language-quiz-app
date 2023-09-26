@@ -142,6 +142,7 @@ const QuizMake = () => {
       const response = await axios.get(
         import.meta.env.VITE_API_URL + `/quiz/getCompleteQuiz/${localId}`,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -200,6 +201,7 @@ const QuizMake = () => {
         import.meta.env.VITE_API_URL + "/quiz/createQuiz",
         postData,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -250,6 +252,7 @@ const QuizMake = () => {
         import.meta.env.VITE_API_URL + "/quiz/createQuiz",
         postData,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -285,6 +288,7 @@ const QuizMake = () => {
         import.meta.env.VITE_API_URL + `/quiz/createAssignment/${data?._id}`,
         postData,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -317,6 +321,7 @@ const QuizMake = () => {
         import.meta.env.VITE_API_URL +
           `/quiz/deleteAssignment/${data?._id}/${id}`,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -358,6 +363,7 @@ const QuizMake = () => {
           `/quiz/createQuestion/${data?._id}/${assignId}`,
         postData,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -389,6 +395,7 @@ const QuizMake = () => {
         import.meta.env.VITE_API_URL +
           `/quiz/deleteQuestion/${data?._id}/${assignId}/${quesId}`,
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -413,6 +420,7 @@ const QuizMake = () => {
         import.meta.env.VITE_API_URL + `/quiz/publish/${data?._id}`,
         {},
         {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },

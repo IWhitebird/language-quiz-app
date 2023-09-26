@@ -21,6 +21,7 @@ const Workshop = () => {
     try{
       const response = await axios.get(import.meta.env.VITE_API_URL + '/auth/me', 
       {
+        withCredentials: true,
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -51,6 +52,7 @@ const Workshop = () => {
       const response = await axios.delete
       (import.meta.env.VITE_API_URL + `/quiz/deleteQuiz/${quizid}`,
        {
+        withCredentials: true,
         headers: {
           'Authorization': `Bearer ${token}`
         }

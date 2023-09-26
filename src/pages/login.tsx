@@ -26,6 +26,8 @@ const Login = () => {
             {
                 email: email,
                 password: password
+            },{
+              withCredentials: true,
             })
 
         if(response.data.success === true) {
