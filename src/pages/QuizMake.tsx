@@ -96,7 +96,7 @@ const QuizMake = () => {
     setQuestionData({ ...questionData, [name]: value });
   };
 
-  const instructionHandle = (e: any) => {
+  const instructionHandle = () => {
     if (insHelper === "") return;
     setAssignmentData((prevData) => ({
       ...prevData,
@@ -105,7 +105,7 @@ const QuizMake = () => {
     setInsHelper("");
   };
 
-  const instructionHandleQue = (e: any) => {
+  const instructionHandleQue = () => {
     if (insHelper === "") return;
     let options = questionData.options;
     options.push(insHelper);
