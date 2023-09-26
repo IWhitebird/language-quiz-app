@@ -89,6 +89,13 @@ export async function login(req: Request, res: Response) {
     }
 
     const user = await User.findOne({email}).populate('recent').populate('quizes')
+    .populate({
+      path: 'recent',
+      populate: {
+        path: 'quiz',
+        model: 'Quiz'
+      }
+    })
 
     if(!user){
       return res.status(400).json({
@@ -181,7 +188,14 @@ export async function sendOTP(req: Request, res: Response) {
 
 export async function me(req: AuthReq, res: Response) {
   try{
-    const user = await User.findById(req.user.id).select('-password').populate('recent').populate('quizes');
+    const user = await User.findById(req.user.id).select('-password').populate('quizes')
+    .populate({
+      path: 'recent',
+      populate: {
+        path: 'quiz',
+        model: 'Quiz'
+      }
+    });
 
     if(!user){
       return res.status(400).json({

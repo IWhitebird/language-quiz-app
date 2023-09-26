@@ -3,12 +3,15 @@ import Navbar from "../components/Navbar"
 import { RootState } from "../reducer";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect , useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../slices/userSlice";
+import toast from "react-hot-toast";
 
 const Workshop = () => {
+
+  const [deleteId , setDeleteId] = useState<any>('');
 
   const user = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
@@ -42,6 +45,31 @@ const Workshop = () => {
       window.location.href = '/workshop/quizMake';
   }
 
+  async function handleDelete(quizid : any) {
+    const load = toast.loading('Deleting Quiz...');
+    try {
+      const response = await axios.delete
+      (import.meta.env.VITE_API_URL + `/quiz/deleteQuiz/${quizid}`,
+       {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if(response.statusText === 'OK') {
+        toast.success('Quiz Deleted Successfully');
+        await refetchUser();
+        setDeleteId('');
+      }
+    }
+    catch(err) {
+      console.log(err);
+    }
+    finally {
+      toast.dismiss(load);
+    }
+  }
+
   return (
     <>
     <Navbar />
@@ -72,7 +100,8 @@ const Workshop = () => {
 
           {
             user?.quizes?.map((quiz, index) => (
-              <Card key={index} quiz={quiz} type='workshop' editHandle={() => editHandle(quiz._id)} />
+              <Card key={index} quiz={quiz} type='workshop' editHandle={() => editHandle(quiz._id)} 
+                handleDelete={() => setDeleteId(quiz._id)}/>
             ))
           }
 
@@ -80,6 +109,32 @@ const Workshop = () => {
 
       </div>
     </div>
+
+
+    {
+    deleteId !== '' && 
+    (
+      <div className="fixed inset-0 flex items-center justify-center backdrop-blur-md">
+      <div className="w-[28%] h-[20%] bg-slate-400 border-2 border-black flex flex-col rounded-lg">
+        <h1 className="text-black font-bold text-3xl p-4">
+          You sure you want to Delete?
+        </h1>
+  
+        <div className="flex flex-row gap-3 justify-evenly mt-7 text-xl">
+          <button onClick={()=> handleDelete(deleteId)} className="w-[130px] h-[50px] bg-black text-white hover:scale-110 transition-all duration-200 ease-in-out rounded-lg">
+            Delete
+          </button>
+          <button
+            onClick={() => setDeleteId('')}
+            className="w-[130px] h-[50px] bg-black text-white hover:scale-110 transition-all duration-200 ease-in-out rounded-lg"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    )
+  }
     </>
   )
 }

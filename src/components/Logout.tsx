@@ -12,9 +12,7 @@ const Logout = (props : any) => {
           localStorage.removeItem('token');
           dispatch(deleteUser());
           toast.success('Logged out!', {id: loadingtoast});
-          setTimeout(() => {
-            window.location.href = '/';
-          }, 1000);
+          window.location.href = '/';
         }
         catch(err){
           toast.error('Try Again', {id: loadingtoast});

@@ -15,7 +15,8 @@ const PlayQuiz = () => {
   const [noCheat , setNoCheat] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  
+
+  const token = localStorage.getItem("token");
   const localquiz = localStorage.getItem("cur_quiz");
   const timeValue = new Date(JSON.parse(localquiz!).time);
   const timeRemaining = timeValue.getTime() - Date.now();
@@ -62,6 +63,11 @@ const PlayQuiz = () => {
           answers: answers,
           timeRemaining : timeRemaining
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       setResult(response.data);
