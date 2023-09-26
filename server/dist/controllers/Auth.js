@@ -88,14 +88,27 @@ function login(req, res) {
                     message: "Please enter all the fields",
                 });
             }
-            const user = yield user_1.default.findOne({ email }).populate('recent').populate('quizes')
-                .populate({
-                path: 'recent',
-                populate: {
-                    path: 'quiz',
-                    model: 'Quiz'
-                }
-            });
+            let user;
+            if (email.indexOf('@') === -1) {
+                user = yield user_1.default.findOne({ username: email }).populate('recent').populate('quizes')
+                    .populate({
+                    path: 'recent',
+                    populate: {
+                        path: 'quiz',
+                        model: 'Quiz'
+                    }
+                });
+            }
+            else {
+                user = yield user_1.default.findOne({ email }).populate('recent').populate('quizes')
+                    .populate({
+                    path: 'recent',
+                    populate: {
+                        path: 'quiz',
+                        model: 'Quiz'
+                    }
+                });
+            }
             if (!user) {
                 return res.status(400).json({
                     success: false,

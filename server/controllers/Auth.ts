@@ -87,15 +87,28 @@ export async function login(req: Request, res: Response) {
         message: "Please enter all the fields",
       });
     }
+    let user;
+    if(email.indexOf('@') === -1){
+      user = await User.findOne({username: email}).populate('recent').populate('quizes')
+      .populate({
+        path: 'recent',
+        populate: {
+          path: 'quiz',
+          model: 'Quiz'
+        }
+      })
+    }
+    else {
+      user = await User.findOne({email}).populate('recent').populate('quizes')
+      .populate({
+        path: 'recent',
+        populate: {
+          path: 'quiz',
+          model: 'Quiz'
+        }
+      })
+    }
 
-    const user = await User.findOne({email}).populate('recent').populate('quizes')
-    .populate({
-      path: 'recent',
-      populate: {
-        path: 'quiz',
-        model: 'Quiz'
-      }
-    })
 
     if(!user){
       return res.status(400).json({

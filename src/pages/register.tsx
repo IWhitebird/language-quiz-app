@@ -49,6 +49,7 @@ const Register = () => {
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
+      toast.error("Something went wrong");
     }
   }
 
@@ -79,7 +80,7 @@ const Register = () => {
       window.location.href = "/login";
     } catch (err) {
       toast.dismiss(loading);
-      toast.error("Server side error");
+      toast.error("Something went wrong");
       console.log(err);
     }
     setOtpModal(false);
