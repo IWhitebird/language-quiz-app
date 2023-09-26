@@ -107,7 +107,15 @@ const Workshop = () => {
             ))
           }
 
+
         </div>
+          {
+            user?.quizes?.length === 0 && (
+              <div>
+                <h1 className="text-2xl font-bold text-center">No Quiz's Created 🧐</h1>
+              </div>
+            )
+          }
 
       </div>
     </div>

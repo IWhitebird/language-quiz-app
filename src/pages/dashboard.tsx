@@ -198,11 +198,11 @@ const Dashboard = () => {
       <div className="w-3/4 p-4 ml-[30rem]">
         {selected === "Profile" && (
           <>
-          <p className="text-6xl font bold ml-9 mt-6">Profile</p>
+          <p className="text-6xl font bold ml-7 mt-6">Profile</p>
           <div className="h-screen flex flex-col justify-center items-center gap-5 mt-10">
-            <div className="w-[70%] mx-auto flex">
+            <div className="w-[70%] mx-auto flex mt-16">
               <div className="flex flex-col w-full border-2 border-black rounded-lg p-10">
-                <div className="h-[30%] flex flex-row gap-10">
+                <div className="h-[30%] flex flex-row gap-5">
                   <div className="w-[180px] ">
                     <img src={user?.image} className="rounded-lg"></img>
                     {/* <div
