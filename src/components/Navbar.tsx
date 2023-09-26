@@ -64,7 +64,7 @@ const Navbar = () => {
         <div className="absolute w-full z-10">
           <div className=" w-[80%] text-3xl items-center bg-black mx-auto h-[50px] mt-5 rounded-[15px] text-white flex justify-between p-8">
             <div className="hidden lg:block hover:scale-125 hover:text-cyan-500 transition-all ease-in-out duration-300 ml-24">
-              <h1>
+              <h1 className="text-2xl">
                 Register Today to learn & Compete for awesome prizes!! 🏆🏆
               </h1>
             </div>

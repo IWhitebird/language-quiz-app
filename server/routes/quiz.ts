@@ -14,7 +14,7 @@ import {
     deleteAssignment,
     deleteQuestion,
     publishQuiz
-} from "../controllers/Quiz"
+} from "../controllers/quiz"
 
 
 import {

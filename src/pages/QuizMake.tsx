@@ -533,7 +533,7 @@ const QuizMake = () => {
                   className="w-full border-2 border-black text-3xl rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                 />
               </div>
-              <div className="flex gap-9 mt-9">
+              <div className="flex gap-9 mt-9 mb-10">
                 <button
                   type="submit"
                   onClick={draftSave}
@@ -995,7 +995,7 @@ const QuizMake = () => {
                 </div>
                 
 
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center mb-10">
                   <button
                     onClick={publishQuizHandler}
                     className="mr-14 rounded-2xl bg-black w-[200px] h-[60px] text-xl text-white flex

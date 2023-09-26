@@ -96,7 +96,7 @@ const Workshop = () => {
 
         <div className="h-[1px] bg-black mt-2" />
 
-        <div className="grid grid-cols-1 mt-4 md:grid-col-2 lg:grid-cols-3 justify-evenly lg:ml-14 gap-y-20">
+        <div className="grid grid-cols-1 mt-4 md:grid-col-2 lg:grid-cols-3 justify-evenly lg:ml-14 gap-y-20 mb-10">
 
           {
             user?.quizes?.map((quiz, index) => (
@@ -115,12 +115,12 @@ const Workshop = () => {
     deleteId !== '' && 
     (
       <div className="fixed inset-0 flex items-center justify-center backdrop-blur-md">
-      <div className="w-[28%] h-[20%] bg-slate-400 border-2 border-black flex flex-col rounded-lg">
+      <div className="w-[28%]  bg-slate-400 border-2 border-black flex flex-col rounded-lg">
         <h1 className="text-black font-bold text-3xl p-4">
           You sure you want to Delete?
         </h1>
   
-        <div className="flex flex-row gap-3 justify-evenly mt-7 text-xl">
+        <div className="flex flex-row gap-3 justify-evenly mt-7 text-xl mb-5">
           <button onClick={()=> handleDelete(deleteId)} className="w-[130px] h-[50px] bg-black text-white hover:scale-110 transition-all duration-200 ease-in-out rounded-lg">
             Delete
           </button>

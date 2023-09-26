@@ -11,6 +11,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "newStart": "node dist/index.js"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -24,8 +29,7 @@
     "express-fileupload": "^1.4.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.1.0",
-    "mongoose": "^7.5.2",
-    "nodemon": "^3.0.1"
+    "mongoose": "^7.5.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -37,6 +41,9 @@
     "@types/nodemailer": "^6.4.10",
     "@types/otp-generator": "^4.0.0",
     "nodemailer": "^6.9.5",
-    "otp-generator": "^4.0.1"
+    "nodemon": "^3.0.1",
+    "otp-generator": "^4.0.1",
+    "rimraf": "^5.0.4",
+    "typescript": "^5.2.2"
   }
 }
