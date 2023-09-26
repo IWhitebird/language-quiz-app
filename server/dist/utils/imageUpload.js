@@ -28,3 +28,4 @@ function UploadToCloudinary(file, folder, height, quality) {
     });
 }
 exports.UploadToCloudinary = UploadToCloudinary;
+//# sourceMappingURL=imageUpload.js.map

@@ -69,3 +69,4 @@ function isAdmin(req, res, next) {
     });
 }
 exports.isAdmin = isAdmin;
+//# sourceMappingURL=auth.js.map

@@ -32,3 +32,4 @@ exports.assignmentSchema = new mongoose_1.default.Schema({
     },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model("Assignment", exports.assignmentSchema);
+//# sourceMappingURL=assignment.js.map

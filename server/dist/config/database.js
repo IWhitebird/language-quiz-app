@@ -20,3 +20,4 @@ const connect = () => {
     });
 };
 exports.default = connect;
+//# sourceMappingURL=database.js.map

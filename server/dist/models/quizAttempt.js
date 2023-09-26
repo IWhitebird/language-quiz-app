@@ -25,3 +25,4 @@ const quizAttemptSchema = new mongoose_1.default.Schema({
     },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model("QuizAttempt", quizAttemptSchema);
+//# sourceMappingURL=quizAttempt.js.map

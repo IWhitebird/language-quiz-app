@@ -52,3 +52,4 @@ otpSchema.pre("save", function (next) {
     });
 });
 exports.default = mongoose_1.default.model("OTP", otpSchema);
+//# sourceMappingURL=otp.js.map

@@ -19,3 +19,4 @@ const cloudinaryConnect = () => {
     }
 };
 exports.default = cloudinaryConnect;
+//# sourceMappingURL=cloudinary.js.map

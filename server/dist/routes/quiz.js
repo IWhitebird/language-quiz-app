@@ -19,3 +19,4 @@ router.delete("/deleteQuiz/:quizId", auth_1.auth, quiz_1.deleteQuiz);
 router.delete("/deleteAssignment/:quizId/:assignId", auth_1.auth, quiz_1.deleteAssignment);
 router.delete("/deleteQuestion/:quizId/:assignId/:quesId", auth_1.auth, quiz_1.deleteQuestion);
 exports.default = router;
+//# sourceMappingURL=quiz.js.map

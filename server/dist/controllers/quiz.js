@@ -402,3 +402,4 @@ const deleteQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deleteQuestion = deleteQuestion;
+//# sourceMappingURL=quiz.js.map

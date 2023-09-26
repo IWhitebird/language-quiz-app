@@ -56,3 +56,4 @@ const mailSender = (email, title, body) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.default = mailSender;
+//# sourceMappingURL=mailSender.js.map

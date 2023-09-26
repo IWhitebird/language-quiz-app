@@ -85,3 +85,4 @@ const EmailVerification = (otp) => {
 	</html>`;
 };
 exports.default = EmailVerification;
+//# sourceMappingURL=otpTemplate.js.map

@@ -12,3 +12,4 @@ router.post("/login", Auth_1.login);
 router.get('/me', auth_1.auth, Auth_1.me);
 router.post("/sendOTP", Auth_1.sendOTP);
 exports.default = router;
+//# sourceMappingURL=auth.js.map

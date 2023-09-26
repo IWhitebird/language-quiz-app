@@ -54,3 +54,4 @@ const quizSchema = new mongoose_1.default.Schema({
     },
 }, { timestamps: true });
 exports.default = mongoose_1.default.model("Quiz", quizSchema);
+//# sourceMappingURL=quiz.js.map
