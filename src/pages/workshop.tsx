@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { useEffect , useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUser } from "../slices/userSlice";
+import { setUser} from "../slices/userSlice";
+import { setState } from "../slices/createQuiz";
 import toast from "react-hot-toast";
 
 const Workshop = () => {
@@ -43,6 +44,7 @@ const Workshop = () => {
 
   async function editHandle(quizid : any) {
       localStorage.setItem('state' , quizid);
+      dispatch(setState(true));
       window.location.href = '/workshop/quizMake';
   }
 

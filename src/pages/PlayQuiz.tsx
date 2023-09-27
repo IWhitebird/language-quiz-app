@@ -50,7 +50,7 @@ const PlayQuiz = () => {
       setLoading(true);
       setModal(true);
       if(answers === undefined) {
-        toast.error("Please attempt the quiz!!", {icon: "🤔"});
+        toast.error("Please slect atleast one!!", {icon: "🤔"});
         setTimeout(() => {
           window.location.href = '/home';
         }, 1000)
@@ -217,7 +217,7 @@ const PlayQuiz = () => {
               <div key={index} className="w-full h-full mb-10">
                 <div className="text-2xl lg:text-5xl flex flex-col lg:flex-row justify-between w-[90%] mx-auto">
                   <div className="font-bold flex flex-col lg:flex-row">
-                    <span>Assignment {index + 1}</span> : {ass.name}
+                    <span>Assignment {index + 1} :</span>  {ass.name}
                   </div>
                   <div className="text-2xl lg:text-4xl mt-2">Total Points : {ass.maxscore}</div>
                 </div>
@@ -226,9 +226,9 @@ const PlayQuiz = () => {
 
                 <div className="w-full h-full flex flex-col text-2xl mt-4 ">
                   <p className="font-bold">Instructions </p>
-                  <ul>
+                  <ul className="ml-4 text-xl">
                     {ass.instructions?.map((item, i) => (
-                      <li key={i}>{item}</li>
+                      <li key={i}>{i+1}.{item}</li>
                     ))}
                   </ul>
                 </div>
@@ -237,7 +237,7 @@ const PlayQuiz = () => {
                   {ass.questions?.map((que, i) => (
                     <div
                       key={i}
-                      className="text-3xl font-bold mt-5 border-[2px] p-4 rounded-md border-black h-auto"
+                      className="text-2xl lg:text-3xl font-bold mt-5 border-[2px] p-4 rounded-md border-black h-auto"
                     >
                       <div className="w-full h-auto flex flex-col">
                         <div className="flex flex-row justify-between mb-5 mt-2">
@@ -312,7 +312,7 @@ const PlayQuiz = () => {
          loading ? <Loading /> : (
           <div  className="w-screen h-screen backdrop-blur-sm fixed">
             <div className="w-full h-full flex justify-center items-center content-center">
-              <div className="w-[95%] lg:w-[60%] h-[60%] bg-white flex flex-col border-2 rounded-lg border-black" >
+              <div className="w-[95%] lg:w-[60%] bg-white flex flex-col border-2 rounded-lg border-black" >
                 <div className="flex flex-row justify-between">
                   <div>
 
@@ -325,14 +325,14 @@ const PlayQuiz = () => {
                   </div>
                 </div>
                 <hr />
-                <div className="text-3xl tex-3xl font-bold lg:mt-10 text-center">
+                <div className="text-3xl tex-3xl font-bold mt-5 lg:mt-10 text-center">
                   Total Score is : <br /> <span className="lg:text-5xl text-4xl text-green-950">
                     {result?.quizAttempt?.totalscore}</span>
                 </div>
                 <div className="lg:text-5xl text-3xl font-bold lg:mt-10 text-center">
-                  You got <span className="text-5xl">{result?.correct}</span> correct answers
+                  You got <span className="text-4xl lg:text-5xl">{result?.correct}</span> correct answers
                 </div>
-                <div className="w-full mx-auto mt-20 flex flex-row  justify-center gap-9">
+                <div className="w-full mx-auto mt-20 flex flex-row  justify-center gap-9 mb-10">
                   <button onClick={retryHandle} className="w-[160px] h-[50px] bg-black text-white text-2xl 
                   rounded-md border-2 border-white hover:bg-white hover:border-black
                    hover:text-black hover:scale-125 transition-all duration-300 ease-in-out">

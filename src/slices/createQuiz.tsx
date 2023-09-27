@@ -12,7 +12,7 @@ interface QuizState {
 const initialState : QuizState = {
     data : null,
     mode : 'quiz',
-    state : localStorage.getItem('state') !== '' ? true : false,
+    state : false,
 }
 
 const quizSlice = createSlice({
@@ -23,6 +23,9 @@ const quizSlice = createSlice({
             state.data = action.payload;
             state.state = true;
         },
+        setState(state : QuizState , action : PayloadAction<boolean>) {
+            state.state = action.payload;
+        },
         setMode(state : QuizState , action : PayloadAction<string>) {
             state.mode = action.payload;
         },
@@ -30,10 +33,10 @@ const quizSlice = createSlice({
             state.data = null;
             state.state = false;
             localStorage.setItem('state' , '');
-        }
+        },
     },
 });
 
-export const { setQuiz , setMode , removeQuiz } = quizSlice.actions;
+export const { setQuiz ,setState ,  setMode , removeQuiz } = quizSlice.actions;
 
 export default quizSlice.reducer;

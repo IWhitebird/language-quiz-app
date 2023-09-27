@@ -36,8 +36,8 @@ const Home = () => {
     <>
       <Navbar />
       <div className="p-4 w-[100%] mt-16">
-        <div className="mx-auto w-[80%]  mt-10">
-          <h1 className="text-5xl lg:text-7xl font-bold mb-4 ">
+        <div className="mx-auto w-[90%] lg:w-[80%]  mt-10">
+          <h1 className="text-4xl lg:text-7xl font-bold mb-4 ">
             Ready to Compete?
           </h1>
           <p className="text-xl lg:text-3xl mb-4 ml-4">
@@ -52,11 +52,11 @@ const Home = () => {
 
         <div className="w-[80%] flex flex-col mx-auto mt-8 lg:mx-auto mb-10">
           <div className="flex flex-col lg:flex-row justify-between">
-            <h1 className="text-5xl font-bold mb-4 text-center lg:text-left">
+            <h1 className="text-3xl lg:text-5xl font-bold mb-4 text-center lg:text-left">
               Popular Quizzes
             </h1>
 
-            <div className="mb-4 self-center">
+            <div className="scale-90 lg:scale-100 mb-4 self-center">
               <select
                 onChange={(e) => setSelectedLang(e.target.value)}
                 className="text-2xl border-black border-[3px] p-2 rounded"
