@@ -21,7 +21,7 @@ const Logout = (props : any) => {
       }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-md">
+    <div className="fixed inset-0 flex items-center z-[100] justify-center backdrop-blur-md">
     <div className="lg:w-[28%] w-[90%] bg-slate-400 border-2 border-black flex flex-col rounded-lg">
       <h1 className="text-black font-bold text-3xl p-4">
         Are you sure you want to logout?

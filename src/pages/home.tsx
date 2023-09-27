@@ -56,10 +56,10 @@ const Home = () => {
               Popular Quizzes
             </h1>
 
-            <div className="scale-90 lg:scale-100 mb-4 self-center">
+            <div className="mb-4 self-center">
               <select
                 onChange={(e) => setSelectedLang(e.target.value)}
-                className="text-2xl border-black border-[3px] p-2 rounded"
+                className="text-xl lg:text-2xl border-black border-[3px] p-2 rounded"
                 defaultValue="All"
               >
                 <option value="All">All</option>

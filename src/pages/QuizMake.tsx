@@ -470,11 +470,12 @@ const QuizMake = () => {
 
       <div className="w-[80%] mx-auto mt-28">
         <div className="flex flex-row justify-between items-center">
-          <h1 className="text-6xl text-start font-semibold mb-4 w-full ">
-            Create Quiz
-            {mode === "assignment" && <span> / Assignment</span>}
+          <h1 className="text-3xl lg:text-6xl text-start font-semibold mb-4 w-full ">
+            
+            {mode === "quiz" && <span>Create Quiz</span>}
+            {mode === "assignment" && <span>Quiz/ Assignment</span>}
           </h1>
-          <div onClick={closeHandle} className="text-5xl cursor-pointer">
+          <div onClick={closeHandle} className="text-3xl lg:text-5xl cursor-pointer">
              <AiOutlineClose />
           </div>
         </div>
@@ -483,7 +484,7 @@ const QuizMake = () => {
         {mode === "quiz" && (
           <form
             onSubmit={createQuiz}
-            className="mx-auto flex flex-row justify-evenly gap-5 mt-7"
+            className="mx-auto flex flex-col-reverse lg:flex-row justify-evenly gap-5 mt-7"
           >
             <div className="min-w-[50%]">
               <div className="mb-4">
@@ -614,13 +615,14 @@ const QuizMake = () => {
         {mode === "assignment" && (
           <>
             <div className="w-full h-full ">
+            
               {assignmentModal && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md overflow-scroll">
-                  <div className="bg-white w-1/2 min-h-1/2 border-2 border-black p-4 rounded-lg shadow-lg">
+                  <div className="bg-white w-full lg:w-1/2 min-h-1/2 border-2 border-black p-4 rounded-lg shadow-lg">
                     <form onSubmit={createAssignment}>
                       <div className="flex flex-col gap-4">
                         <div className="flex flex-row justify-between">
-                          <h1 className="text-5xl font-bold">
+                          <h1 className="text-3xl lg:text-5xl font-bold">
                             Create Assignment
                           </h1>
                           <button
@@ -636,7 +638,7 @@ const QuizMake = () => {
                             <div className="flex flex-col">
                               <label
                                 htmlFor="name"
-                                className="block text-gray-700 font-bold text-3xl mb-3"
+                                className="block text-gray-700 font-bold text-xl lg:text-3xl mb-3"
                               >
                                 Name :{" "}
                               </label>
@@ -646,7 +648,7 @@ const QuizMake = () => {
                                 type="text"
                                 name="name"
                                 id="name"
-                                className="w-full border-2 border-black text-3xl rounded-md
+                                className="w-full border-2 border-black text-xl lg:text-3xl rounded-md
                                  py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                               />
                             </div>
@@ -655,7 +657,7 @@ const QuizMake = () => {
                             <div className="flex flex-col">
                               <label
                                 htmlFor="description"
-                                className="block text-gray-700 font-bold text-3xl mb-3"
+                                className="block text-gray-700 font-bold text-xl lg:text-3xl mb-3"
                               >
                                 Description :{" "}
                               </label>
@@ -664,7 +666,7 @@ const QuizMake = () => {
                                 value={assignmentData.description}
                                 name="description"
                                 id="description"
-                                className="w-full border-2 border-black text-3xl rounded-md
+                                className="w-full border-2 border-black text-xl lg:text-3xl rounded-md
                                 py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                               />
                             </div>
@@ -676,7 +678,7 @@ const QuizMake = () => {
                             <div className="flex flex-row justify-between">
                               <label
                                 htmlFor="instructions"
-                                className="block text-gray-700 font-bold text-3xl mb-3"
+                                className="block text-gray-700 font-bold text-xl lg:text-3xl mb-3"
                               >
                                 Instructions :{" "}
                               </label>
@@ -684,9 +686,9 @@ const QuizMake = () => {
                               <label
                                 htmlFor="ins"
                                 onClick={instructionHandle}
-                                className="text-3xl bg-black w-[50px] h-[40px] text-md text-white flex justify-center 
+                                className="text-xl lg:text-3xl bg-black w-[50px] h-[40px] text-md text-white flex justify-center 
                               border-black hover:border-black cursor-pointer rounded-2xl items-center border-2
-                              hover:text-black hover:bg-white transition-all duration-200 ease-in-out hover:scale-110"
+                              hover:text-black hover:bg-white transition-all mb-1 duration-200 ease-in-out hover:scale-110"
                               >
                                 +
                               </label>
@@ -698,7 +700,7 @@ const QuizMake = () => {
                               type="text"
                               name="instructions"
                               id="instructions"
-                              className="w-full border-2 border-black text-3xl rounded-md
+                              className="w-full border-2 border-black text-xl lg:text-3xl rounded-md
                               py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                             />
                           </div>
@@ -710,9 +712,9 @@ const QuizMake = () => {
                               key={i}
                               className="flex flex-row gap-5 mt-5 gap"
                             >
-                              <div className="flex justify-center content-center items-center">
-                                <p className="text-2xl font-bold">{i + 1} : </p>
-                                <p className="text-2xl">{ins}</p>
+                              <div className="lg:text-2xl text-xl flex justify-center content-center items-center">
+                                <p className=" font-bold">{i + 1} : </p>
+                                <p className="">{ins}</p>
                                 <div
                                   onClick={() => insRemover(ins)}
                                   className="cursor-pointer text-2xl ml-2"
@@ -744,15 +746,15 @@ const QuizMake = () => {
                 <>
                   <div>
                     <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md overflow-scroll">
-                      <div className="bg-white w-1/2 min-h-1/2 border-2 border-black p-4 rounded-lg shadow-lg">
+                      <div className="bg-white w-full lg:w-1/2 border-2 border-black p-4 rounded-lg shadow-lg">
                         <form onSubmit={createQuestion}>
                           <div className="flex flex-col gap-4">
                             <div className="flex flex-row justify-between">
-                              <h1 className="text-5xl font-bold">
+                              <h1 className="text-3xl lg:text-5xl font-bold">
                                 Create Question
                               </h1>
                               <button
-                                className="text-3xl"
+                                className="text-xl lg:text-3xl"
                                 onClick={() => setQuestionModal("")}
                               >
                                 <AiOutlineClose />
@@ -764,7 +766,7 @@ const QuizMake = () => {
                                 <div className="flex flex-col w-[90%]">
                                   <label
                                     htmlFor="question"
-                                    className="block text-gray-700 font-bold text-3xl mb-3"
+                                    className="block text-gray-700 font-bold text-xl lg:text-3xl mb-3"
                                   >
                                     Question :{" "}
                                   </label>
@@ -774,7 +776,7 @@ const QuizMake = () => {
                                     type="text"
                                     name="question"
                                     id="question"
-                                    className="w-full border-2 border-black text-3xl rounded-md
+                                    className="w-full border-2 border-black text-xl lg:text-3xl rounded-md
                                  py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                                   />
                                 </div>
@@ -783,7 +785,7 @@ const QuizMake = () => {
                                 <div className="flex flex-col">
                                   <label
                                     htmlFor="points"
-                                    className="block text-gray-700 font-bold text-3xl mb-3"
+                                    className="block text-gray-700 font-bold text-xl lg:text-3xl mb-3"
                                   >
                                     Points :{" "}
                                   </label>
@@ -795,7 +797,7 @@ const QuizMake = () => {
                                     min={1}
                                     name="points"
                                     id="points"
-                                    className="w-full border-2 border-black text-3xl rounded-md
+                                    className="w-full border-2 border-black text-xl lg:text-3xl rounded-md
                                 py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                                   />
                                 </div>
@@ -804,10 +806,10 @@ const QuizMake = () => {
 
                             <div className="flex flex-row gap-5">
                               <div>
-                                <div className="flex flex-row justify-between">
+                                <div className="flex flex-row justify-between ">
                                   <label
                                     htmlFor="instructions"
-                                    className="block text-gray-700 font-bold text-3xl mb-3"
+                                    className="block text-gray-700 font-bold text-xl mt-2 lg:text-3xl mb-3"
                                   >
                                     Options :{" "}
                                   </label>
@@ -815,7 +817,7 @@ const QuizMake = () => {
                                   <label
                                     htmlFor="ins"
                                     onClick={instructionHandleQue}
-                                    className="text-3xl bg-black w-[50px] h-[40px] text-md text-white flex justify-center 
+                                    className="text-xl lg:text-3xl mb-1 bg-black w-[50px] h-[40px] text-md text-white flex justify-center 
                               border-black hover:border-black cursor-pointer rounded-2xl items-center border-2
                               hover:text-black hover:bg-white transition-all duration-200 ease-in-out hover:scale-110"
                                   >
@@ -829,12 +831,12 @@ const QuizMake = () => {
                                   type="text"
                                   name="instructions"
                                   id="instructions"
-                                  className="w-full border-2 border-black text-3xl rounded-md
+                                  className="w-full border-2 border-black text-xl lg:text-3xl rounded-md
                               py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
                                 />
                               </div>
                               <div className="mx-auto my-auto mb-2">
-                                <div className="block text-gray-700 font-bold text-3xl mb-3">
+                                <div className="block text-gray-700 font-bold text-xl lg:text-3xl mb-3">
                                   Correct Ans :
 
                                 </div>
@@ -869,7 +871,7 @@ const QuizMake = () => {
                                       <p className="text-2xl">{ins}</p>
                                       <div
                                         onClick={() => insRemoverQue(ins)}
-                                        className="cursor-pointer text-2xl ml-2"
+                                        className="cursor-pointer text-xl lg:text-3xl ml-2"
                                       >
                                         <AiOutlineClose />
                                       </div>
@@ -902,7 +904,7 @@ const QuizMake = () => {
                 <div className="mt-10 flex justify-end">
                   <button
                     onClick={() => setAssignmentModal(true)}
-                    className="rounded-2xl bg-black w-[200px] h-[60px] text-xl text-white flex
+                    className="rounded-2xl bg-black w-[150px] lg:w-[200px] h-[60px] text-xl text-white flex
                      justify-center items-center border-2 border-black hover:border-black cursor-pointer
                   hover:text-black hover:bg-white transition-all duration-200 ease-in-out hover:scale-110"
                   >
@@ -910,15 +912,17 @@ const QuizMake = () => {
                   </button>
                 </div>
 
-                <div className="w-[90%] mb-10">
+                <div className="w-full lg:w-[90%] mb-10">
                   {data?.assignment.map((ass: IAssignment, i: any) => (
                     <div key={i}>
                       <div
-                        className="w-[100%] ml-4  text-3xl items-center bg-black mx-auto 
-                          h-[50px] mt-5 rounded-[15px] text-white flex justify-between p-8
+                        className="w-full lg:ml-4 text-md lg:text-3xl items-center bg-black mx-auto 
+                          lg:h-[50px] mt-5 rounded-[15px] text-white flex justify-between p-8
                           hover:scale-105 transition-all duration-200 ease-in-out"
                       >
-                        <div className="flex">
+                        <div className="flex flex-col-reverse lg:flex-row w-full">
+
+                        <div className="flex flex-row justify-center items-center text-xl ">
                           <div
                             onClick={() => setQuestionModal(ass._id)}
                             className="cursor-pointer rounded-2xl bg-white p-2 m-2 text-black 
@@ -936,17 +940,27 @@ const QuizMake = () => {
                           >
                             Show
                           </div>
+                          <div
+                            onClick={() => assignmentDelete(ass._id)}
+                            className="cursor-pointer text-3xl  lg:hidden"
+                          >
+                            <MdDelete />
+                          </div>
                         </div>
-                        <p>Assignment No.{i + 1}</p>
-                        <p>{ass.name}</p>
-                        <p>Marks : {ass.maxscore}</p>
-                        {ass?.questions?.length} Questions
-                        <div
-                          onClick={() => assignmentDelete(ass._id)}
-                          className="cursor-pointer"
-                        >
-                          <MdDelete />
+                        <div className="w-full text-xl flex flex-col lg:flex-row lg:items-center gap-3 lg:justify-between">
+                          <p>Assignment No.{i + 1}</p>
+                          <p>{ass.name}</p>
+                          <p> Marks : {ass.maxscore}</p>
+                          <p>{ass?.questions?.length} Questions</p>
+                          <div
+                            onClick={() => assignmentDelete(ass._id)}
+                            className="cursor-pointer hidden lg:block"
+                          >
+                            <MdDelete />
+                          </div>
                         </div>
+                        </div>
+
                       </div>
 
                       {showQues.toString() === ass._id.toString() && (
@@ -1014,7 +1028,7 @@ const QuizMake = () => {
                 <div className="w-full flex justify-center mb-10">
                   <button
                     onClick={publishQuizHandler}
-                    className="mr-14 rounded-2xl bg-black w-[200px] h-[60px] text-xl text-white flex
+                    className="lg:mr-14 rounded-2xl bg-black w-[200px] h-[60px] text-xl text-white flex
                      justify-center items-center border-2 border-black hover:border-black cursor-pointer
                   hover:text-black hover:bg-white transition-all duration-200 ease-in-out hover:scale-110"
                   >
