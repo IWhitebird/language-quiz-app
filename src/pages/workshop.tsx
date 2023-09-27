@@ -78,7 +78,7 @@ const Workshop = () => {
     <div>
       <div className="w-[80%] mx-auto mt-[150px]">
         
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-col lg:flex-row justify-between">
 
           <div className="flex flex-col gap-5">
             <h1 className="text-6xl font-bold"> Workshop </h1>
@@ -86,11 +86,13 @@ const Workshop = () => {
           </div>
 
           <Link to='/workshop/quizMake'>
-            <div className="rounded-2xl bg-black w-[200px] h-[60px] text-xl text-white flex
-              justify-center items-center border-2 border-black hover:border-black cursor-pointer
-              hover:text-black hover:bg-white transition-all duration-200 ease-in-out hover:scale-110"
-              >
-                Create New
+            <div className="flex justify-center mt-6 lg:mt-0 lg:justify-start">
+              <div className="rounded-2xl bg-black w-[200px] h-[60px] text-xl text-white flex
+                justify-center items-center border-2 border-black hover:border-black cursor-pointer
+                hover:text-black hover:bg-white transition-all duration-200 ease-in-out hover:scale-110"
+                >
+                  Create New
+              </div>
             </div>
           </Link>
 

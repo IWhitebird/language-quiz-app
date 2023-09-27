@@ -176,10 +176,12 @@ export const createAssignment = async (req: Request, res: Response) => {
             return res.status(400).json({success : false , error: 'Please enter all fields' });
         }
 
+        const parsedinstructions = await JSON.parse(instructions);
+
         const assignment = await Assignment.create({
             name,
             description,
-            instructions: instructions,
+            instructions: parsedinstructions,
         });
 
         const updatedQuiz = await Quiz.findByIdAndUpdate(

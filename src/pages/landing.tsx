@@ -8,7 +8,7 @@ const Landing = () => {
       <Navbar />
       <div className="mt-5 w-full h-full">
 
-        <div className="lg:mt-[15rem] flex flex-col justify-center items-center">
+        <div className="lg:mt-[15rem] mt-[5rem] flex flex-col justify-center items-center">
           <h1 className="mb-[2rem] text-7xl lg:text-9xl font-bold p-4 text-center outline-8 italic from-black to-black bg-gradient-to-r bg-clip-text text-transparent">
             Welcome to LINGO !!!
           </h1>

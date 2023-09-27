@@ -145,71 +145,73 @@ const Dashboard = () => {
 
   return (
     <div className="flex gap-7 h-screen">
-      <div className="w-1/4 bg-gray-200 p-4 flex flex-col gap-5 fixed top-0 h-[100vh]">
-        <div className="flex justify-between">
-          <h1 className="text-4xl font-semibold">Dasboard</h1>
-          <Link
-            to="/home"
-            className="text-4xl hover:translate-x-[-5px] hover:scale-105 transition-all
-           duration-200 ease-in-out"
+      <div className="hidden lg:block">
+        <div className="w-1/4 bg-gray-200 p-4 flex flex-col gap-5 fixed top-0 h-[100vh]">
+          <div className="flex justify-between">
+            <h1 className="text-4xl font-semibold">Dasboard</h1>
+            <Link
+              to="/home"
+              className="text-4xl hover:translate-x-[-5px] hover:scale-105 transition-all
+            duration-200 ease-in-out"
+            >
+              <BiArrowBack />
+            </Link>
+          </div>
+
+          <div className="mb-4">
+            <img
+              src={user?.image}
+              alt="User Profile"
+              className="w-16 h-16 rounded-full mx-auto"
+            />
+            <p className="text-center mt-2 text-3xl">
+              {user?.firstName} {user?.lastName}
+            </p>
+          </div>
+
+          <div
+            onClick={() => setSelected("Profile")}
+            className={`hover:bg-slate-200 transition-all duration-200 ease-in-out 
+          cursor-pointer border-2 border-black rounded-lg p-5 text-xl hover:scale-105
+          ${selected === "Profile" ? "bg-slate-400" : ""}`}
           >
-            <BiArrowBack />
-          </Link>
-        </div>
+            <h2 className="font-semibold">Profile</h2>
+          </div>
 
-        <div className="mb-4">
-          <img
-            src={user?.image}
-            alt="User Profile"
-            className="w-16 h-16 rounded-full mx-auto"
-          />
-          <p className="text-center mt-2 text-3xl">
-            {user?.firstName} {user?.lastName}
-          </p>
-        </div>
+          <div
+            onClick={() => setSelected("Past")}
+            className={`hover:bg-slate-200 transition-all duration-200 ease-in-out 
+          cursor-pointer border-2 border-black rounded-lg p-5 text-xl hover:scale-105
+          ${selected === "Past" ? "bg-slate-400" : ""}`}
+          >
+            <h2 className="font-semibold">Past Attempt's</h2>
+          </div>
 
-        <div
-          onClick={() => setSelected("Profile")}
-          className={`hover:bg-slate-200 transition-all duration-200 ease-in-out 
-        cursor-pointer border-2 border-black rounded-lg p-5 text-xl hover:scale-105
-        ${selected === "Profile" ? "bg-slate-400" : ""}`}
-        >
-          <h2 className="font-semibold">Profile</h2>
-        </div>
-
-        <div
-          onClick={() => setSelected("Past")}
-          className={`hover:bg-slate-200 transition-all duration-200 ease-in-out 
-        cursor-pointer border-2 border-black rounded-lg p-5 text-xl hover:scale-105
-        ${selected === "Past" ? "bg-slate-400" : ""}`}
-        >
-          <h2 className="font-semibold">Past Attempt's</h2>
-        </div>
-
-        <div
-          onClick={() => setSelected("Logout")}
-          className={`hover:bg-slate-200 transition-all duration-200 ease-in-out 
-        cursor-pointer border-2 border-black rounded-lg p-5 text-xl hover:scale-105
-        ${selected === "Logout" ? "bg-slate-400" : ""}`}
-        >
-          <h2 className="font-semibold">Logout</h2>
+          <div
+            onClick={() => setSelected("Logout")}
+            className={`hover:bg-slate-200 transition-all duration-200 ease-in-out 
+          cursor-pointer border-2 border-black rounded-lg p-5 text-xl hover:scale-105
+          ${selected === "Logout" ? "bg-slate-400" : ""}`}
+          >
+            <h2 className="font-semibold">Logout</h2>
+          </div>
         </div>
       </div>
 
       <div className="w-3/4 p-4 ml-[30rem]">
         {selected === "Profile" && (
           <>
-          <p className="text-6xl font bold ml-7 mt-6">Profile</p>
-          <div className="h-screen flex flex-col justify-center items-center gap-5 mt-10">
-            <div className="w-[70%] mx-auto flex mt-16">
-              <div className="flex flex-col w-full border-2 border-black rounded-lg p-10">
+          <p className="lg:text-6xl text-2xl font bold lg:ml-7 mt-6">Profile</p>
+          <div className="h-screen flex flex-col justify-center items-center gap-5 lg:mt-10">
+            <div className="w-[98%] lg:w-[70%] mx-auto flex lg:mt-16">
+              <div className="flex flex-col w-full border-2 border-black rounded-lg p-4 lg:p-10">
                 <div className="h-[30%] flex flex-row gap-5">
-                  <div className="w-[180px] ">
+                  <div className="hidden lg:block w-[180px] ">
                     <img src={user?.image} className="rounded-lg"></img>
                   </div>
 
                   <div className="lg:ml-7">
-                    <div className="flex flex-col text-3xl gap-6">
+                    <div className="flex flex-col text-md lg:text-3xl gap-4 lg:gap-6">
                       <p className="border-[1px] border-black rounded-lg p-2">
                         User : {user?.username}
                       </p>
@@ -236,9 +238,9 @@ const Dashboard = () => {
         )}
         {selected === "Past" && (
           <>
-            <p className="text-6xl font bold ml-9 mt-6">Past Attempt's</p>
+            <p className="text-4xl font bold ml-9 mt-6">Past Attempt's</p>
           <div className="h-screen flex justify-center ">
-            <div className="w-[70%] mt-[5rem]">
+            <div className="lg:w-[70%] w-full mt-[5rem]">
               {user?.recent.map((item: any ,i) => (
                 <div
                   key={i}

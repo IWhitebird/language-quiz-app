@@ -193,16 +193,16 @@ const PlayQuiz = () => {
       <div>
         <div className="absolute w-full ">
           <div
-            className=" w-[80%] text-3xl items-center bg-black mx-auto 
+            className=" w-[80%] text-md lg:text-3xl items-center bg-black mx-auto 
             h-[50px] mt-5 rounded-[15px] text-white flex justify-between p-8"
           >
             <div className="flex flex-row items-center gap-2 h-full">
-              <h1 className="">Quiz Name :</h1>
+              <h1 className="hidden lg:block">Quiz Name :</h1>
               <h1 className="font-bold">{quiz?.name}</h1>
             </div>
 
             <div className="items-center lg:mr-[8rem]">
-              <h1 className="">Good Luck!!!</h1>
+              <h1 className="hidden lg:block">Good Luck!!!</h1>
             </div>
 
             <div className="hover:scale-125 hover:text-cyan-500 transition-all ease-in-out duration-300">
@@ -215,11 +215,11 @@ const PlayQuiz = () => {
           {quiz?.assignment.map((ass, index) => {
             return (
               <div key={index} className="w-full h-full mb-10">
-                <div className="text-5xl flex flex-row justify-between w-[90%] mx-auto">
-                  <div className="font-bold">
-                    Assignment {index + 1} : {ass.name}
+                <div className="text-2xl lg:text-5xl flex flex-col lg:flex-row justify-between w-[90%] mx-auto">
+                  <div className="font-bold flex flex-col lg:flex-row">
+                    <span>Assignment {index + 1}</span> : {ass.name}
                   </div>
-                  <div className="text-4xl mt-2">Total Points : {ass.maxscore}</div>
+                  <div className="text-2xl lg:text-4xl mt-2">Total Points : {ass.maxscore}</div>
                 </div>
 
                 <div className="indent-8 mt-6 text-lg">{ass.description}</div>
@@ -312,12 +312,12 @@ const PlayQuiz = () => {
          loading ? <Loading /> : (
           <div  className="w-screen h-screen backdrop-blur-sm fixed">
             <div className="w-full h-full flex justify-center items-center content-center">
-              <div className="w-[60%] h-[60%] bg-white flex flex-col border-2 rounded-lg border-black" >
+              <div className="w-[95%] lg:w-[60%] h-[60%] bg-white flex flex-col border-2 rounded-lg border-black" >
                 <div className="flex flex-row justify-between">
                   <div>
 
                   </div>
-                  <div className="text-center lg:text-5xl mt-5 ml-24 font-bold">
+                  <div className="text-center lg:text-5xl text-4xl mt-5 ml-24 font-bold">
                     Results !! 📝
                   </div>
                   <div onClick={overHandle} className="m-5 lg:text-3xl cursor-pointer">
@@ -325,10 +325,11 @@ const PlayQuiz = () => {
                   </div>
                 </div>
                 <hr />
-                <div className="lg:text-3xl font-bold lg:mt-10 text-center">
-                  Total Score is : <br /> <span className="lg:text-5xl text-green-950">{result?.quizAttempt?.totalscore}</span>
+                <div className="text-3xl tex-3xl font-bold lg:mt-10 text-center">
+                  Total Score is : <br /> <span className="lg:text-5xl text-4xl text-green-950">
+                    {result?.quizAttempt?.totalscore}</span>
                 </div>
-                <div className="lg:text-5xl font-bold lg:mt-10 text-center">
+                <div className="lg:text-5xl text-3xl font-bold lg:mt-10 text-center">
                   You got <span className="text-5xl">{result?.correct}</span> correct answers
                 </div>
                 <div className="w-full mx-auto mt-20 flex flex-row  justify-center gap-9">

@@ -61,7 +61,7 @@ const Quiz = () => {
 
       <Link
         to="/home"
-        className="z-50 absolute left-[5.5rem] top-[2.3rem] text-4xl hover:-translate-x-4 hover:scale-110
+        className="z-50 absolute lg:left-[5.5rem] top-[2.3rem] text-4xl hover:-translate-x-4 hover:scale-110
         transition-all duration-200 ease-in-out"
       >
         <BiArrowBack />
@@ -103,13 +103,13 @@ const Quiz = () => {
         <div className="h-1 bg-black w-full mt-5"></div>
 
         <div className="mt-10">
-          <div className="flex flex-row mx-auto justify-around mb-7 w-[50%] gap-3 lg:gap-0">
+          <div className="flex text-2xl flex-row mx-auto justify-around mb-7 w-[50%] gap-3 lg:gap-0">
             <div
               className={`${
                 isActive === "Assignment"
                   ? "bg-black text-white"
                   : "text-black border-2 border-black"
-              }  h-[60px] w-[250px] text-2xl rounded-md text-center pt-4 transition-colors
+              }  h-[60px] w-[250px]  rounded-md text-center p-4 transition-colors
                ease-in-out duration-300 hover:cursor-pointer`}
               onClick={() => setIsActive("Assignment")}
             >
@@ -120,7 +120,7 @@ const Quiz = () => {
                 isActive === "Leaderboard"
                   ? "bg-black text-white"
                   : "text-black border-2 border-black"
-              } h-[60px] w-[200px] text-2xl rounded-md text-center pt-4
+              } h-[60px] w-[200px]  rounded-md text-center p-4
                transition-colors ease-in-out duration-300  hover:cursor-pointer`}
               onClick={() => setIsActive("Leaderboard")}
             >
@@ -129,7 +129,7 @@ const Quiz = () => {
           </div>
 
           {isActive === "Assignment" ? (
-            <div className="flex flex-col gap-5 text-xl w-[80%] mx-auto font-bold">
+            <div className="flex flex-col gap-5 text-md lg:text-xl w-[100%] lg:w-[80%] mx-auto font-bold">
               {quiz?.assignment.map((assi: IAssignment, i: number) => {
                 return (
                   <div
@@ -138,22 +138,26 @@ const Quiz = () => {
                      hover:bg-black hover:text-white w-full h-[3rem] items-center 
                      p-5 flex flex-row justify-between border-black border-2 rounded-md text-center"
                   >
-                    <h1 className="w-[20%]">Assignment No. {i+1}</h1>
-                    <h4 className="w-[20%]">Name: {assi.name}</h4>
-                    <h5 className="w-[20%]">{assi.description}</h5>
-                    <h5 className="w-[20%]">{assi.maxscore}</h5>
+                    <h1 className="w-[18%] hidden lg:block">Assignment No. {i+1}</h1>
+                    <h1 className="w-[20%] block lg:hidden">{i+1}</h1>
+                    <h4 className="lg:w-[25%] w-[60%]"> {assi.name}</h4>
+                    <h5 className="w-[40%] hidden lg:block">
+                      {assi.description?.slice(0, 50)}{" "}
+                      {assi?.description?.length >= 50 ? "..." : ""}
+                      </h5>
+                    <h5 className="w-[10%]">{assi.maxscore}</h5>
                   </div>
                 );
               })}
             </div>
           ) : (
-            <div className="flex flex-col gap-5 p-2 w-[70%] mx-auto min-h-[400px] mt-10">
+            <div className="flex flex-col gap-5 p-2 w-full lg:w-[70%] mx-auto mt-10">
               {quiz && quiz.leaderboard?.length > 0 ? (
                 quiz?.leaderboard.slice(0, 10).map((lead: any, i: number) => (
                   <div
                     key={i}
-                    className="text-3xl hover:scale-110 transition-all duration-300 ease-in-out
-                     hover:bg-black  hover:text-white w-fullh-[3rem] rounded-full items-center p-3 flex flex-row 
+                    className="text-xl lg:text-3xl hover:scale-110 transition-all duration-300 ease-in-out
+                     hover:bg-black  hover:text-white w-full h-[3rem] rounded-full items-center p-3 flex flex-row 
                      justify-between border-black border-2"
                   >
                     <div className="min-w-[10%] max-w-[10%] ml-4">
