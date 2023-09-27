@@ -2,7 +2,6 @@ import { useSelector } from "react-redux"
 import Navbar from "../components/Navbar"
 import { RootState } from "../reducer";
 import Card from "../components/Card";
-import { Link } from "react-router-dom";
 import { useEffect , useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
