@@ -160,10 +160,11 @@ const createAssignment = (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (!name || !description || instructions.length === 0) {
             return res.status(400).json({ success: false, error: 'Please enter all fields' });
         }
+        const parsedinstructions = yield JSON.parse(instructions);
         const assignment = yield assignment_1.default.create({
             name,
             description,
-            instructions: instructions,
+            instructions: parsedinstructions,
         });
         const updatedQuiz = yield quiz_1.default.findByIdAndUpdate(req.params.quizId, { $push: { assignment: assignment._id } }, { new: true }).populate('assignment').populate({
             path: 'assignment',
