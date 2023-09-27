@@ -70,7 +70,7 @@ const Quiz = () => {
       <div className="w-[90%] mt-[9rem] mx-auto">
         <div className="flex flex-col lg:flex-row w-[90%] mx-auto lg:gap-2">
           <div className="flex flex-col w-full lg:w-[40%]">
-            <h1 className="text-6xl mb-6 font-bold capitalize">{quiz?.name}</h1>
+            <h1 className="lg:text-6xl text-4xl  mb-6 font-bold capitalize">{quiz?.name}</h1>
             <h2 className="text-2xl ml-6 indent-10 lg:min-h-[150px]">
               {quiz?.description}
             </h2>
@@ -78,12 +78,12 @@ const Quiz = () => {
             <hr style={{ borderColor: "black" }} />
 
             <div className="mt-2 gap-3 flex flex-col">
-              <h3 className="text-3xl ml-6 ">
+              <h3 className="lg:text-3xl text-xl ml-6 ">
                 {" "}
                 <span className="font-bold">Language : </span>
                 {quiz?.language}
               </h3>
-              <h3 className="text-3xl ml-6 ">
+              <h3 className="lg:text-3xl text-xl ml-6 ">
                 <span className="font-bold">Created By :</span>{" "}
                 {quiz?.createdBy.username}
               </h3>
