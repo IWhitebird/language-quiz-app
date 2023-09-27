@@ -42,11 +42,18 @@ const Workshop = () => {
     refetchUser();
   } , []);
 
-  async function editHandle(quizid : any) {
+  function editHandle(quizid : any) {
       localStorage.setItem('state' , quizid);
       dispatch(setState(true));
       window.location.href = '/workshop/quizMake';
   }
+
+  function createNewHandle() {
+    localStorage.setItem('state' , '');
+    dispatch(setState(false));
+    window.location.href = '/workshop/quizMake';
+  }
+
 
   async function handleDelete(quizid : any) {
     const load = toast.loading('Deleting Quiz...');
@@ -87,8 +94,7 @@ const Workshop = () => {
             <h2 className="text-2xl">Create your own Quiz's and share it with your friend's!!</h2>
           </div>
 
-          <Link to='/workshop/quizMake'>
-            <div className="flex justify-center mt-6 lg:mt-0 lg:justify-start">
+            <div onClick={createNewHandle} className="flex justify-center mt-6 lg:mt-0 lg:justify-start">
               <div className="rounded-2xl bg-black w-[200px] h-[60px] text-xl text-white flex
                 justify-center items-center border-2 border-black hover:border-black cursor-pointer
                 hover:text-black hover:bg-white transition-all duration-200 ease-in-out hover:scale-110"
@@ -96,7 +102,6 @@ const Workshop = () => {
                   Create New
               </div>
             </div>
-          </Link>
 
         </div>
 

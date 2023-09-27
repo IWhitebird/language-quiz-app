@@ -12,7 +12,7 @@ interface QuizState {
 const initialState : QuizState = {
     data : null,
     mode : 'quiz',
-    state : false,
+    state : localStorage.getItem('state') !== '' ? true : false,
 }
 
 const quizSlice = createSlice({
