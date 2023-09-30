@@ -45,6 +45,7 @@
     "otp-generator": "^4.0.1",
     "pre-commit": "^1.2.2",
     "rimraf": "^5.0.4",
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }
 }

@@ -14,7 +14,7 @@ const PlayQuiz = () => {
   const [result, setResult] = useState<any>();
   const [noCheat , setNoCheat] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [timeOver , setTimeOver] = useState<boolean>(false);
 
   const token = localStorage.getItem("token");
   const localquiz = localStorage.getItem("cur_quiz");
@@ -43,7 +43,7 @@ const PlayQuiz = () => {
 
   async function submitHandle() {
     try{
-      if(!noCheat) {
+      if(!timeOver && !noCheat) {
         toast.error("Please check the box!!", {icon: "🤔"});
         return
       }
@@ -83,6 +83,7 @@ const PlayQuiz = () => {
 
   function timeOverHandle() {
     toast("Time Over!!", { icon: "⏰" });
+    setTimeOver(true);
     setTimeout(() => {
       submitHandle();
     }, 500)
@@ -281,6 +282,9 @@ const PlayQuiz = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+                <div className=" h-1 bg-black mt-10">
+
                 </div>
               </div>
             );
